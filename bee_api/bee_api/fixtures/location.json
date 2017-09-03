@@ -1,0 +1,12 @@
+[
+  {
+    "model": "bee_api.Location",
+    "pk": 2,
+    "fields": {
+      "street_addr": "84 Summer St.",
+      "city": "Hanover",
+      "state_province": 29
+    }
+  }
+]
+

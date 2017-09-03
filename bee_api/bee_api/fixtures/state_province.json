@@ -1,0 +1,453 @@
+[
+  {
+    "model": "bee_api.State_Province",
+    "pk": 1,
+    "fields": {
+      "name": "Alabama",
+      "country": 1,
+      "abbreviation": "AL"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 2,
+    "fields": {
+      "name": "Alaska",
+      "country": 1,
+      "abbreviation": "AK"
+    }
+  },
+
+  {
+    "model": "bee_api.State_Province",
+    "pk": 3,
+    "fields": {
+      "name": "Arizona",
+      "country": 1,
+      "abbreviation": "AZ"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 4,
+    "fields": {
+      "name": "Arkansas",
+      "country": 1,
+      "abbreviation": "AR"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 5,
+    "fields": {
+      "name": "California",
+      "country": 1,
+      "abbreviation": "CA"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 6,
+    "fields": {
+      "name": "Colorado",
+      "country": 1,
+      "abbreviation": "CO"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 7,
+    "fields": {
+      "name": "Connecticut",
+      "country": 1,
+      "abbreviation": "CT"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 8,
+    "fields": {
+      "name": "Delaware",
+      "country": 1,
+      "abbreviation": "DE"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 9,
+    "fields": {
+      "name": "Florida",
+      "country": 1,
+      "abbreviation": "FL"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 10,
+    "fields": {
+      "name": "Georgia",
+      "country": 1,
+      "abbreviation": "GA"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 11,
+    "fields": {
+      "name": "Hawaii",
+      "country": 1,
+      "abbreviation": "HI"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 12,
+    "fields": {
+      "name": "Idaho",
+      "country": 1,
+      "abbreviation": "ID"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 13,
+    "fields": {
+      "name": "Illinois",
+      "country": 1,
+      "abbreviation": "IL"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 14,
+    "fields": {
+      "name": "Indiana",
+      "country": 1,
+      "abbreviation": "IN"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 15,
+    "fields": {
+      "name": "Iowa",
+      "country": 1,
+      "abbreviation": "IA"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 16,
+    "fields": {
+      "name": "Kansas",
+      "country": 1,
+      "abbreviation": "KS"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 17,
+    "fields": {
+      "name": "Kentucky",
+      "country": 1,
+      "abbreviation": "KY"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 18,
+    "fields": {
+      "name": "Louisiana",
+      "country": 1,
+      "abbreviation": "LA"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 19,
+    "fields": {
+      "name": "Maine",
+      "country": 1,
+      "abbreviation": "ME"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 20,
+    "fields": {
+      "name": "Maryland",
+      "country": 1,
+      "abbreviation": "MD"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk":21,
+    "fields": {
+      "name": "Massachusetts",
+      "country": 1,
+      "abbreviation": "MA"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 22,
+    "fields": {
+      "name": "Michigan",
+      "country": 1,
+      "abbreviation": "MI"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 23,
+    "fields": {
+      "name": "Minnesota",
+      "country": 1,
+      "abbreviation": "MN"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 24,
+    "fields": {
+      "name": "Mississippi",
+      "country": 1,
+      "abbreviation": "MS"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 25,
+    "fields": {
+      "name": "Missouri",
+      "country": 1,
+      "abbreviation": "MO"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 26,
+    "fields": {
+      "name": "Montana",
+      "country": 1,
+      "abbreviation": "MT"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 27,
+    "fields": {
+      "name": "Nebraska",
+      "country": 1,
+      "abbreviation": "NE"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 28,
+    "fields": {
+      "name": "Nevada",
+      "country": 1,
+      "abbreviation": "NV"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 29,
+    "fields": {
+      "name": "New Hampshire",
+      "country": 1,
+      "abbreviation": "NH"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 30,
+    "fields": {
+      "name": "New Jersey",
+      "country": 1,
+      "abbreviation": "NJ"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 31,
+    "fields": {
+      "name": "New Mexico",
+      "country": 1,
+      "abbreviation": "NM"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 32,
+    "fields": {
+      "name": "New York",
+      "country": 1,
+      "abbreviation": "NY"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 33,
+    "fields": {
+      "name": "North Carolina",
+      "country": 1,
+      "abbreviation": "NC"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 34,
+    "fields": {
+      "name": "North Dakota",
+      "country": 1,
+      "abbreviation": "ND"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 35,
+    "fields": {
+      "name": "Ohio",
+      "country": 1,
+      "abbreviation": "OH"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 36,
+    "fields": {
+      "name": "Oklahoma",
+      "country": 1,
+      "abbreviation": "OK"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 37,
+    "fields": {
+      "name": "Oregon",
+      "country": 1,
+      "abbreviation": "OR"
+    }
+  },
+    {
+    "model": "bee_api.State_Province",
+    "pk": 38,
+    "fields": {
+      "name": "Pennsylvania",
+      "country": 1,
+      "abbreviation": "PA"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 39,
+    "fields": {
+      "name": "Rhode Island",
+      "country": 1,
+      "abbreviation": "RI"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 40,
+    "fields": {
+      "name": "South Carolina",
+      "country": 1,
+      "abbreviation": "SC"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 41,
+    "fields": {
+      "name": "South Dakota",
+      "country": 1,
+      "abbreviation": "SD"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 42,
+    "fields": {
+      "name": "Tennessee",
+      "country": 1,
+      "abbreviation": "TN"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 43,
+    "fields": {
+      "name": "Texas",
+      "country": 1,
+      "abbreviation": "TX"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 44,
+    "fields": {
+      "name": "Utah",
+      "country": 1,
+      "abbreviation": "UT"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 45,
+    "fields": {
+      "name": "Vermont",
+      "country": 1,
+      "abbreviation": "VT"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 46,
+    "fields": {
+      "name": "Virginia",
+      "country": 1,
+      "abbreviation": "VA"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 47,
+    "fields": {
+      "name": "Washington",
+      "country": 1,
+      "abbreviation": "WA"
+    }
+  },
+    {
+    "model": "bee_api.State_Province",
+    "pk": 48,
+    "fields": {
+      "name": "West Virginia",
+      "country": 1,
+      "abbreviation": "WV"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 49,
+    "fields": {
+      "name": "Wisconsin",
+      "country": 1,
+      "abbreviation": "WI"
+    }
+  },
+  {
+    "model": "bee_api.State_Province",
+    "pk": 50,
+    "fields": {
+      "name": "Wyoming",
+      "country": 1,
+      "abbreviation": "WY"
+    }
+  }
+]
