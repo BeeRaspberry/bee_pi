@@ -1,19 +1,23 @@
-#!/usr/bin/env python
-import os
-import sys
+from flask_script import Manager
+
+from bee_api import app
+import fixtures as _fixtures
+import models
+
+manager = Manager(app)
+
+
+@manager.command
+def tables():
+    "Create database tables."
+    models.create_tables(app)
+
+
+@manager.command
+def fixtures():
+    "Install test data fixtures into the configured database."
+    _fixtures.install(app, *_fixtures.all_data)
+
 
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bee_api.settings")
-    try:
-        from django.core.management import execute_from_command_line
-    except ImportError:
-        try:
-            import django
-        except ImportError:
-            raise ImportError(
-                "Couldn't import Django. Are you sure it's installed and "
-                "available on your PYTHONPATH environment variable? Did you "
-                "forget to activate a virtual environment?"
-            )
-        raise
-    execute_from_command_line(sys.argv)
+    manager.run()

@@ -1,0 +1,14 @@
+[
+    {
+        "model": "models.Country",
+        "records": [{
+            "name": "United States"
+        },
+        {
+            "name": "Canada"
+        },
+        {
+            "name": "Mexico"
+        }]
+    }
+]

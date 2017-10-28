@@ -1,0 +1,12 @@
+[
+  {
+    "model": "models.Location",
+    "records": [
+      {
+        "streetAddress": "123 Main St.",
+        "stateProvinceId": 21,
+        "city": "Boston"
+      }
+    ]
+  }
+]
