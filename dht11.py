@@ -12,7 +12,6 @@ import sqlite3
 from urllib.request import urlopen
 
 
-
 DEBUG = 1
 # Setup the pins we are connect to
 RCpin = 24
