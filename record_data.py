@@ -49,11 +49,11 @@ def createConfig(fileName):
     data = {'host': 'localhost', 'DHTPin': 4, 'DHTModel': 'DHT11',
             'DataStore': 'File', 'delay': 300, 'hiveId': 1,
             'filename': 'beedata.csv'}
-    with open(fileName, "w") as data_file:
+    with open(fileName, "a") as data_file:
         json.dump(data, data_file)
 
 def getSensorData():
-    RHW, TW = Adafruit_DHT.read_retry(Adafruit_DHT.DHT11, settings['DHTpin'])
+    RHW, TW = Adafruit_DHT.read_retry(Adafruit_DHT.DHT11, settings['DHTPin'])
 
     # return dict
     return [RHW, TW]
@@ -69,18 +69,17 @@ def loadConfig(file_name):
     with open(file_name) as data_file:
         settings = json.load(data_file)
 
-def writeData(temp, humid):
-    with open(settings['filename']) as data_file:
-        line = '{},{},{}\n'.format(datetime.datetime.utcnow, temp, humid)
+def writeData(hiveData):
+    with open(settings['filename'], 'w') as data_file:
+        line = '{},{},{},{}\n'.format(hiveData['hive']['id'], 
+               datetime.utcnow(), hiveData['temperature'],
+               hiveData['humidity'])
         data_file.write(line)
 
 
 def postDB(hiveData):
     if settings['DataStore'] == 'File':
-        dateCreated = db.Column(db.DateTime, default=datetime.datetime.utcnow)
-        temperature = db.Column(db.Numeric)
-        humidity = db.Column(db.Numeric)
-        print(hiveData)
+        writeData(hiveData)
 
 
 def main():
@@ -92,19 +91,19 @@ def main():
     baseURL = 'http://{}:5000/hivedata/'.format(settings['host'])
 
     while True:
-        try:
+    #    try:
             RHW, TW = getSensorData()
             content = {'hive': {'id': settings['hiveId']}, 'humidity': RHW,
                        'temperature': TW}
 
-            if network:
-                html = requests.post(baseURL, json=content)
-            else:
-                postDB(content)
+    #        if network:
+    #            html = requests.post(baseURL, json=content)
+    #        else:
+            postDB(content)
 
             sleep(int(settings['delay']))
-        except:
-            print('Error')
+    #    except:
+    #        print('Error')
 
 
 if __name__ == '__main__':
