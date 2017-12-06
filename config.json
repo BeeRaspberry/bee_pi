@@ -1,1 +1,1 @@
-{"host": "192.168.1.160", "hiveId":1, "delay":900, "loglevel":"INFO"}
+{"host": "localhost", "DHTPin": 4, "DHTModel": 2, "DataStore": 0, "delay": 300, "hiveId": 1, "filename": "beedata.csv"}

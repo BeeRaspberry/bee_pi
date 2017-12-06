@@ -46,8 +46,8 @@ def connectDB():
 
 
 def createConfig(fileName):
-    data = {'host': 'localhost', 'DHTPin': 4, 'DHTModel': 'DHT11',
-            'DataStore': 'File', 'delay': 300, 'hiveId': 1,
+    data = {'host': 'localhost', 'DHTPin': 4, 'DHTModel': 0,
+            'DataStore': 0, 'delay': 300, 'hiveId': 1,
             'filename': 'beedata.csv'}
     with open(fileName, "a") as data_file:
         json.dump(data, data_file)
@@ -70,7 +70,7 @@ def loadConfig(file_name):
         settings = json.load(data_file)
 
 def writeData(hiveData):
-    with open(settings['filename'], 'w') as data_file:
+    with open(settings['filename'], 'a') as data_file:
         line = '{},{},{},{}\n'.format(hiveData['hive']['id'], 
                datetime.utcnow(), hiveData['temperature'],
                hiveData['humidity'])
@@ -88,11 +88,13 @@ def main():
 
     loadConfig('config.json')
 
+    sensor = (Adafruit_DHT.DHT11, Adafruit_DHT.DHT22, Adafruit_DHT.AM2302)
     baseURL = 'http://{}:5000/hivedata/'.format(settings['host'])
 
     while True:
     #    try:
-            RHW, TW = getSensorData()
+            RHW, TW = humidity, temperature = \
+                Adafruit_DHT.read_retry(sensor[settings['DHTModel']], settings['DHTPin'])
             content = {'hive': {'id': settings['hiveId']}, 'humidity': RHW,
                        'temperature': TW}
 
