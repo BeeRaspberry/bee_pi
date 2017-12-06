@@ -81,7 +81,7 @@ def main():
     print ('starting...')
     network = checkForNetworkConnection()
 
-    settings = loadConfig('config.json')
+    settings = loadConfig('config.bak')
     
     baseURL = 'http://{}:5000/hivedata/'.format(settings['host'])
 
