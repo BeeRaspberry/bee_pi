@@ -56,12 +56,12 @@ def loadConfig(file_name):
 
 
 def writeData(filename, hiveData):
+    print(filename)
     with open(filename, 'a') as data_file:
         for probe in hiveData['probes']:
             line = '{},{},{},{},{},{}\n'.format(hiveData['hive']['id'],
-                datetime.utcnow(), hiveData[probe]['model'],
-                hiveData[probe]['outdoor'], hiveData[probe]['temperature'],
-                hiveData[probe]['humidity'])
+                datetime.utcnow(), probe['model'], probe['outdoor'],
+                probe['temperature'], probe['humidity'])
             data_file.write(line)
 
 
@@ -72,7 +72,7 @@ def postDB(hiveData, filename):
 
 def main():
     print('starting...')
-    network = checkForNetworkConnection()
+#    network = checkForNetworkConnection()
     config_file = 'config.json'
     settings = loadConfig(config_file)
     if settings is None:
@@ -81,13 +81,15 @@ def main():
 
     baseURL = 'http://{}:5000/hivedata/'.format(settings['host'])
 
+    print('configuring probes')
     for probe in settings['probes']:
-        GPIO.setup(probe['DHTpin'], GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(probe['DHTPin'], GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
     while True:
-        try:
+      #  try:
             tmp_probes = []
             for probe in settings['probes']:
+                print("Checking probe, {}".format(probe['DHTModel']))
                 RHW, TW = humidity, temperature = \
                     Adafruit_DHT.read_retry(probe['DHTModel'], probe['DHTPin'])
                 tmp_probes.append({'model': probe['DHTModel'],
@@ -99,11 +101,12 @@ def main():
     #        if network:
     #            html = requests.post(baseURL, json=content)
     #        else:
-            postDB(content, settings['filename'])
+            if settings['DataStore'] == 0:
+               writeData(settings['filename'], content)
 
             sleep(int(settings['delay']))
-        except:
-            print('Error')
+      #  except:
+      #      print('Error')
 
 
 if __name__ == '__main__':
