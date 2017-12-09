@@ -17,8 +17,7 @@ RCpin = 24
 DHTpin = 4
 
 GPIO.setmode(GPIO.BCM)
-GPIO.setup(DHTpin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setwarnings(False)
 
 logger = logging.getLogger('record_data')
 
@@ -45,33 +44,28 @@ def connectDB():
         print('create db')
 
 
-def createConfig(fileName):
-    data = {'host': 'localhost', 'DHTPin': 4, 'DHTModel': 0,
-            'DataStore': 0, 'delay': 300, 'hiveId': 1,
-            'filename': 'beedata.csv'}
-    with open(fileName, "w") as data_file:
-        json.dump(data, data_file)
-
-
 def loadConfig(file_name):
-    config_is_new = not os.path.exists(file_name)
+    config_exists = os.path.exists(file_name)
     global settings
 
-    if config_is_new:
-        createConfig(file_name)
-
-    with open(file_name) as data_file:
-        settings = json.load(data_file)
-
-def writeData(hiveData):
-    with open(settings['filename'], 'a') as data_file:
-        line = '{},{},{},{}\n'.format(hiveData['hive']['id'], 
-               datetime.utcnow(), hiveData['temperature'],
-               hiveData['humidity'])
-        data_file.write(line)
+    if config_exists:
+        with open(file_name) as data_file:
+            return json.load(data_file)
+    else:
+        return None
 
 
-def postDB(hiveData):
+def writeData(filename, hiveData):
+    with open(filename, 'a') as data_file:
+        for probe in hiveData['probes']:
+            line = '{},{},{},{},{},{}\n'.format(hiveData['hive']['id'],
+                datetime.utcnow(), hiveData[probe]['model'],
+                hiveData[probe]['outdoor'], hiveData[probe]['temperature'],
+                hiveData[probe]['humidity'])
+            data_file.write(line)
+
+
+def postDB(hiveData, filename):
     if settings['DataStore'] == 'File':
         writeData(hiveData)
 
@@ -79,26 +73,37 @@ def postDB(hiveData):
 def main():
     print('starting...')
     network = checkForNetworkConnection()
-
-    loadConfig('config.json')
+    config_file = 'config.json'
+    settings = loadConfig(config_file)
+    if settings is None:
+        print('Config File, {}, is empty. Run gui_config.py'.format(config_file))
+        exit(9)
 
     baseURL = 'http://{}:5000/hivedata/'.format(settings['host'])
 
+    for probe in settings['probes']:
+        GPIO.setup(probe['DHTpin'], GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+
     while True:
-    #    try:
-            RHW, TW = humidity, temperature = \
-                Adafruit_DHT.read_retry(settings['DHTModel'], settings['DHTPin'])
-            content = {'hive': {'id': settings['hiveId']}, 'humidity': RHW,
-                       'temperature': TW}
+        try:
+            tmp_probes = []
+            for probe in settings['probes']:
+                RHW, TW = humidity, temperature = \
+                    Adafruit_DHT.read_retry(probe['DHTModel'], probe['DHTPin'])
+                tmp_probes.append({'model': probe['DHTModel'],
+                                   'outdoor': probe['outdoor'],
+                                   'humidity': RHW, 'temperature': TW})
+            content = {'hive': {'id': settings['hiveId']},
+                       'probes': tmp_probes}
 
     #        if network:
     #            html = requests.post(baseURL, json=content)
     #        else:
-            postDB(content)
+            postDB(content, settings['filename'])
 
             sleep(int(settings['delay']))
-    #    except:
-    #        print('Error')
+        except:
+            print('Error')
 
 
 if __name__ == '__main__':
