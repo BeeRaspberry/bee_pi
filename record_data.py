@@ -1,25 +1,21 @@
 # Import all the libraries we need to run
 import sys
-import RPi.GPIO as GPIO
 import os
 from time import sleep
 from datetime import datetime
-import Adafruit_DHT
 import netifaces
 import json
 import requests
 import logging
 from urllib.request import urlopen
-
-DEBUG = 1
-# Setup the pins we are connect to
-RCpin = 24
-DHTpin = 4
+import Adafruit_DHT
+import RPi.GPIO as GPIO
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 logger = logging.getLogger('record_data')
+logging.basicConfig(filename='bee_data.log',level=logging.INFO)
 
 
 def checkForNetworkConnection():
@@ -41,7 +37,7 @@ def connectDB():
     conn = sqlite3.connect(db_filename)
 
     if db_is_new:
-        print('create db')
+        logger.debug('create db, {}'.format(db_filename))
 
 
 def loadConfig(file_name):
@@ -50,14 +46,16 @@ def loadConfig(file_name):
 
     if config_exists:
         with open(file_name) as data_file:
+            logger.debug("Successfully open config file, {}".format(file_name))
             return json.load(data_file)
     else:
+        logger.debug("Failed to open config file, {}".format(file_name))
         return None
 
 
 def writeData(filename, hiveData):
-    print(filename)
     with open(filename, 'a') as data_file:
+        logger.debug("Writing to data to file, {}".format(filename))
         for probe in hiveData['probes']:
             line = '{},{},{},{},{},{}\n'.format(hiveData['hive']['id'],
                 datetime.utcnow(), probe['model'], probe['outdoor'],
@@ -71,17 +69,17 @@ def postDB(hiveData, filename):
 
 
 def main():
-    print('starting...')
+    logger.debug('starting collecting data')
 #    network = checkForNetworkConnection()
     config_file = 'config.json'
     settings = loadConfig(config_file)
     if settings is None:
-        print('Config File, {}, is empty. Run gui_config.py'.format(config_file))
+        logger.error('Config File, {}, is empty. Run gui_config.py'.format(config_file))
         exit(9)
 
     baseURL = 'http://{}:5000/hivedata/'.format(settings['host'])
 
-    print('configuring probes')
+    logger.debug('configuring probes')
     for probe in settings['probes']:
         GPIO.setup(probe['DHTPin'], GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
@@ -89,7 +87,7 @@ def main():
       #  try:
             tmp_probes = []
             for probe in settings['probes']:
-                print("Checking probe, {}".format(probe['DHTModel']))
+                logger.debug("Checking probe, {}".format(probe['DHTModel']))
                 RHW, TW = humidity, temperature = \
                     Adafruit_DHT.read_retry(probe['DHTModel'], probe['DHTPin'])
                 tmp_probes.append({'model': probe['DHTModel'],
