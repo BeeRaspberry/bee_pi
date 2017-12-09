@@ -9,7 +9,6 @@ import netifaces
 import json
 import requests
 import logging
-import sqlite3
 from urllib.request import urlopen
 
 DEBUG = 1
@@ -19,6 +18,7 @@ DHTpin = 4
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(DHTpin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
 logger = logging.getLogger('record_data')
 
@@ -49,11 +49,11 @@ def createConfig(fileName):
     data = {'host': 'localhost', 'DHTPin': 4, 'DHTModel': 0,
             'DataStore': 0, 'delay': 300, 'hiveId': 1,
             'filename': 'beedata.csv'}
-    with open(fileName, "a") as data_file:
+    with open(fileName, "w") as data_file:
         json.dump(data, data_file)
 
 def getSensorData():
-    RHW, TW = Adafruit_DHT.read_retry(Adafruit_DHT.DHT11, settings['DHTPin'])
+    RHW, TW = Adafruit_DHT.read_retry(settings['DHTModel'], settings['DHTPin'])
 
     # return dict
     return [RHW, TW]
