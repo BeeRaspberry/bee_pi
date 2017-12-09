@@ -11,7 +11,8 @@ sensor_types = (Adafruit_DHT.DHT11, Adafruit_DHT.DHT22, Adafruit_DHT.AM2302)
 used_pins = []
 probes=[]
 
-def main():
+
+def find():
     seconds = len(sensor_types) * len(possible_pins[GPIO.RPI_REVISION])
     print("starting... be patient this will take about {} seconds".format(seconds))
 
@@ -21,14 +22,14 @@ def main():
                 GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
                 h, t = Adafruit_DHT.read_retry(sensor, pin, retries=3)
                 if h is not None and t is not None:
-                    probes.append({'sensor': sensor, 'pin': pin})
+                    probes.append({'sensor': sensor, 'pin': pin, 'outdoor': False})
                     used_pins.append(pin)
                 else:
                     print("Nothing found for {} on pin, {}".format(sensor,pin))
 
                 GPIO.cleanup(pin)
-    print(probes)
+    return probes
 
 
 if __name__ == '__main__':
-    main()
+    find()

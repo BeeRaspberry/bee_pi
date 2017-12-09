@@ -52,12 +52,6 @@ def createConfig(fileName):
     with open(fileName, "w") as data_file:
         json.dump(data, data_file)
 
-def getSensorData():
-    RHW, TW = Adafruit_DHT.read_retry(settings['DHTModel'], settings['DHTPin'])
-
-    # return dict
-    return [RHW, TW]
-
 
 def loadConfig(file_name):
     config_is_new = not os.path.exists(file_name)
@@ -88,13 +82,12 @@ def main():
 
     loadConfig('config.json')
 
-    sensor = (Adafruit_DHT.DHT11, Adafruit_DHT.DHT22, Adafruit_DHT.AM2302)
     baseURL = 'http://{}:5000/hivedata/'.format(settings['host'])
 
     while True:
     #    try:
             RHW, TW = humidity, temperature = \
-                Adafruit_DHT.read_retry(sensor[settings['DHTModel']], settings['DHTPin'])
+                Adafruit_DHT.read_retry(settings['DHTModel'], settings['DHTPin'])
             content = {'hive': {'id': settings['hiveId']}, 'humidity': RHW,
                        'temperature': TW}
 
