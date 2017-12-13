@@ -1,32 +1,13 @@
 import os
 import wx
 import json
+import config
 #from find_probes import find
 
 lstLocation = ['File', 'API']
 lstTypes = ['None', 'DHT11', 'DHT22', 'AM2302']
 type_values = [0,11,22,2302]
 
-def loadConfig(file_name):
-    global data, original_data
-
-    data = {'host': 'localhost', 'DataStore': 0, 'delay': 300, 'hiveId': 1,
-            'filename': 'beedata.csv', 'probes': []}
-
-    config_exists = os.path.exists(file_name)
-
-    if config_exists:
-        with open(file_name) as data_file:
-            data = json.load(data_file)
-#    else:
-#        data['probes'] = find()
-
-    original_data = data
-
-
-def writeConfig(fileName):
-    with open(fileName, "w") as data_file:
-        json.dump(data, data_file)
 
 class GUI(wx.Frame):
     def __init__(self, parent, title):
