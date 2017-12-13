@@ -97,3 +97,10 @@ ENV/
 .ropeproject
 
 .idea/
+=======
+.idea/bee_api.iml
+.idea/dbnavigator.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+.idea/workspace.xml
