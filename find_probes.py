@@ -19,30 +19,33 @@ def find():
 
 # Scan for active pins
     for pin in possible_pins[GPIO.RPI_REVISION]:
-        if pin not in used_pins:
-            GPIO.setup(pin, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
-            h, t = Adafruit_DHT.read_retry(sensor_types[0], pin, retries=3)
-            if h > 2.0 and h < 101.0:
+        GPIO.setup(pin, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+        h, t = Adafruit_DHT.read_retry(sensor_types[0], pin, retries=3)
+        if h is not None and t is not None:
 # if h is valid then add values to probe, don't add pin to used_pins
+            if h > 2.0 and h < 101.0:
                 probes.append({'sensor': sensor_types[0], 'pin': pin,
                                 'outdoor': False})
+                print("Found for {} on pin, {}".format(sensor_types[0], pin))
             else:
+                print("Found something on pin, {}".format(pin))
                 used_pins.append(pin)
-            GPIO.cleanup(pin)
+        GPIO.cleanup(pin)
 
     for sensor in sensor_types[1:]:
         for pin in used_pins:
-            if pin not in used_pins:
-                GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-                h, t = Adafruit_DHT.read_retry(sensor, pin, retries=3)
+            GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+            h, t = Adafruit_DHT.read_retry(sensor, pin, retries=3)
 # if h is valid then add values to probe, don't add pin to used_pins
-                if h > 2.0 and h < 101.0:
-                    probes.append({'sensor': sensor, 'pin': pin, 'outdoor': False})
-                    used_pins.remove(pin)
-                else:
-                    print("Nothing found for {} on pin, {}".format(sensor,pin))
+            if h is not None and h > 2.0 and h < 101.0:
+                probes.append({'sensor': sensor, 'pin': pin, 'outdoor': False})
+                used_pins.remove(pin)
+                print("Found for {} on pin, {}".format(sensor_types[0], pin))
+            else:
+                print("Nothing found for {} on pin, {}".format(sensor,pin))
 
-                GPIO.cleanup(pin)
+            GPIO.cleanup(pin)
+
     return probes
 
 
