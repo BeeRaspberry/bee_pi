@@ -1,7 +1,7 @@
 import os
 import wx
 import json
-import config
+from config import *
 #from find_probes import find
 
 lstLocation = ['File', 'API']
@@ -56,25 +56,19 @@ class GUI(wx.Frame):
         label3 = wx.StaticText(panel0, -1, "Hive Id:", pos=(300, posY))
         hbox2.Add(label3, 1, wx.EXPAND | wx.ALIGN_LEFT | wx.ALL, 5)
         self.txtHiveId = wx.TextCtrl(panel0, pos=(350, posY))
-  #      posY = posY + 30
-  #      self.panel2 = wx.Panel(self, pos=(0, posY), size=(250,150))
+
         vbox2 = wx.BoxSizer(wx.VERTICAL)
         hbox1 = wx.BoxSizer(wx.HORIZONTAL)
 
         hbox1.Add(self.label1, 1, wx.EXPAND | wx.ALIGN_LEFT | wx.ALL, 5)
-  #      self.txtHost = wx.TextCtrl(panel0, pos=(100, posY))
 
         hbox1.Add(self.txtHost, 1, wx.EXPAND | wx.ALIGN_LEFT | wx.ALL, 5)
-#        self.txtHost.Bind(wx.EVT_TEXT, self.OnKeyTyped)
-#        self.txtHost.Hide()
         vbox2.Add(hbox1)
 
         hbox2.Add(self.txtDelay, 1, wx.EXPAND | wx.ALIGN_LEFT | wx.ALL, 5)
-#        self.txtDelay.Bind(wx.EVT_TEXT, self.OnKeyTyped)
         vbox2.Add(hbox2)
 
         posY = posY + 50
- #       self.panel3 = wx.Panel(self, pos=(0, posY), size=(250,150))
         btnCancel = wx.Button(panel0, wx.ID_ANY, 'Cancel', (170, posY))
         btnCancel.Bind(wx.EVT_BUTTON, self.onBtnCancel)
         btnSave = wx.Button(panel0, wx.ID_ANY, 'Save', (270, posY))
@@ -87,6 +81,7 @@ class GUI(wx.Frame):
         self.Fit()
 
     def setValues(self):
+        global data
         self.dataLocation.SetSelection(data['DataStore'])
         if data['probes'].__len__() > 0:
             self.dhtType1.SetSelection(type_values.index(data['probes'][0]['DHTModel']))
@@ -107,17 +102,14 @@ class GUI(wx.Frame):
             self.txtHost.Hide()
             self.label1.Hide()
 
- #   def ondhtTypes(self, event):
- #       dhtType = self.dhtTypes.GetSelection()
-
- #   def OnKeyTyped(self, event):
- #       print(event.GetString())
 
     def onBtnCancel(self, event):
+        global data, original_data
         data = original_data
         self.init_screen()
 
     def onBtnSave(self, event):
+        global  data
         data['delay'] = int(self.txtDelay.GetValue())
         data['hiveId'] = int(self.txtHiveId.GetValue())
         data['host'] = self.txtHost.GetValue()
@@ -138,7 +130,7 @@ class GUI(wx.Frame):
                                 type_values[self.dhtType1.GetSelection()],
                                 'outdoor': self.dhtOutdoor1.GetValue()})
 
-        writeConfig('config.json')
+        writeConfig(data, 'config.json')
         self.Close()
 
     def OnQuit(self, e):
@@ -147,7 +139,8 @@ class GUI(wx.Frame):
 
 def main():
     ex = wx.App()
-    loadConfig('config.json')
+    data = loadConfig('config.json')
+    original = data
     GUI(None, 'Bee Hive Config')
     ex.MainLoop()
 

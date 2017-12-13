@@ -2,7 +2,7 @@
 import sys
 import RPi.GPIO as GPIO
 import Adafruit_DHT
-import config
+from config import *
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -53,7 +53,7 @@ def find():
 
 
 if __name__ == '__main__':
-    loadConfig('config.json')
+    data = loadConfig('config.json')
     probes = find()
     data['probes'] = probes
-    writeConfig('config.json')
+    writeConfig(data, 'config.json')
