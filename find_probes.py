@@ -14,10 +14,22 @@ probes=[]
 
 def find():
     seconds = len(sensor_types) * len(possible_pins[GPIO.RPI_REVISION])
+
     print("starting... be patient this will take about {} seconds".format(seconds))
 
-    for sensor in sensor_types:
-        for pin in possible_pins[GPIO.RPI_REVISION]:
+# Scan for active pins
+    for pin in possible_pins[GPIO.RPI_REVISION]:
+        if pin not in used_pins:
+            GPIO.setup(pin, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+            h, t = Adafruit_DHT.read_retry(sensor[0], pin, retries=3)
+            if h is not None and t is not None:
+                print(h)
+# if h is valid then add values to probe, don't add pin to used_pins
+                used_pins.append(pin)
+            GPIO.cleanup(pin)
+
+    for sensor in sensor_types[1:]:
+        for pin in used_pins:
             if pin not in used_pins:
                 GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
                 h, t = Adafruit_DHT.read_retry(sensor, pin, retries=3)
