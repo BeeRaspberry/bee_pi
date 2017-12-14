@@ -40,10 +40,13 @@ def find():
         for pin in used_pins:
             GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
             h, t = Adafruit_DHT.read_retry(sensor, pin, retries=3)
-            if h is not None and h > 2.0 and h < 101.0:
-                probes.append({'sensor': sensor, 'pin': pin, 'outdoor': False})
-                used_pins.remove(pin)
-                print("Found for {} on pin, {}".format(sensor, pin))
+            if h is not None:
+                if h > 2.0 and h < 101.0:
+                    probes.append({'sensor': sensor, 'pin': pin, 'outdoor': False})
+                    used_pins.remove(pin)
+                    print("Found for {} on pin, {}".format(sensor, pin))
+                else:
+                    print("Found something on pin, {}".format(pin))
             else:
                 print("Nothing found for {} on pin, {}".format(sensor,pin))
 
