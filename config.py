@@ -3,7 +3,7 @@ import os
 
 
 def loadConfig(file_name, logger):
-    data = {'host': 'localhost', 'DataStore': 0, 'delay': 300, 'hiveId': 1,
+    data = {'host': 'localhost', 'dataStore': 0, 'delay': 300, 'hiveId': 1,
             'filename': 'beedata.csv', 'probes': []}
 
     config_exists = os.path.exists(file_name)

@@ -1,17 +1,21 @@
 import os
 import wx
 import json
+import logging
 from config import *
 #from find_probes import find
 
 lstLocation = ['File', 'API']
 lstTypes = ['None', 'DHT11', 'DHT22', 'AM2302']
-type_values = [0,11,22,2302]
 
+logger = logging.getLogger('gui_config')
+logging.basicConfig(filename='bee_config.log',level=logging.INFO)
 
 class GUI(wx.Frame):
-    def __init__(self, parent, title):
+    def __init__(self, parent, title, data):
         super(GUI, self).__init__(parent, title=title, size=(550, 400))
+        self.data = data
+        self.original_data = data
         self.init_screen()
 
     def init_screen(self):
@@ -81,17 +85,16 @@ class GUI(wx.Frame):
         self.Fit()
 
     def setValues(self):
-        global data
-        self.dataLocation.SetSelection(data['DataStore'])
-        if data['probes'].__len__() > 0:
-            self.dhtType1.SetSelection(type_values.index(data['probes'][0]['DHTModel']))
-            self.dhtOutdoor1.SetValue(bool(data['probes'][0]['outdoor']))
-        if data['probes'].__len__() > 1:
-            self.dhtType2.SetSelection(type_values.index(data['probes'][1]['DHTModel']))
-            self.dhtOutdoor2.SetValue(bool(data['probes'][1]['outdoor']))
-        self.txtDelay.SetValue(str(data['delay']))
-        self.txtHiveId.SetValue(str(data['hiveId']))
-        self.txtHost.SetValue(data['host'])
+        self.dataLocation.SetSelection(self.data['dataStore'])
+        if self.data['probes'].__len__() > 0:
+            self.dhtType1.SetSelection(self.data['probes'][0]['sensor'])
+            self.dhtOutdoor1.SetValue(bool(self.data['probes'][0]['outdoor']))
+        if self.data['probes'].__len__() > 1:
+            self.dhtType2.SetSelection(self.data['probes'][1]['sensor'])
+            self.dhtOutdoor2.SetValue(bool(self.data['probes'][1]['outdoor']))
+        self.txtDelay.SetValue(str(self.data['delay']))
+        self.txtHiveId.SetValue(str(self.data['hiveId']))
+        self.txtHost.SetValue(self.data['host'])
 
     def onDataLocation(self, event):
         location = self.dataLocation.GetSelection()
@@ -104,8 +107,7 @@ class GUI(wx.Frame):
 
 
     def onBtnCancel(self, event):
-        global data, original_data
-        data = original_data
+        self.data = self.original_data
         self.init_screen()
 
     def onBtnSave(self, event):
@@ -116,17 +118,17 @@ class GUI(wx.Frame):
 
         data['DataStore'] = self.dataLocation.GetSelection()
         if data['probes'].__len__() > 0:
-            data['probes'][0]['DHTModel'] = type_values[self.dhtType1.GetSelection()]
+            data['probes'][0]['sensor'] = type_values[self.dhtType1.GetSelection()]
             data['probes'][0]['outdoor'] = self.dhtOutdoor1.GetValue()
         else:
-            data['probes'] = [{'DHTModel': type_values[self.dhtType1.GetSelection()],
+            data['probes'] = [{'snesor': type_values[self.dhtType1.GetSelection()],
                      'outdoor': self.dhtOutdoor1.GetValue()}]
 
         if data['probes'].__len__() > 1:
-            data['probes'][1]['DHTModel'] = type_values[self.dhtType2.GetSelection()]
+            data['probes'][1]['sensor'] = type_values[self.dhtType2.GetSelection()]
             data['probes'][1]['outdoor'] = self.dhtOutdoor2.GetValue()
         else:
-            data['probes'].append({'DHTModel':
+            data['probes'].append({'sensor':
                                 type_values[self.dhtType1.GetSelection()],
                                 'outdoor': self.dhtOutdoor1.GetValue()})
 
@@ -139,9 +141,9 @@ class GUI(wx.Frame):
 
 def main():
     ex = wx.App()
-    data = loadConfig('config.json')
+    data = loadConfig('config.json', logger)
     original = data
-    GUI(None, 'Bee Hive Config')
+    GUI(None, 'Bee Hive Config', data)
     ex.MainLoop()
 
 

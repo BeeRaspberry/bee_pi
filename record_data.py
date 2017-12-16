@@ -88,7 +88,7 @@ def main():
     #        if network:
     #            html = requests.post(baseURL, json=content)
     #        else:
-            if settings['DataStore'] == 0:
+            if settings['dataStore'] == 0:
                writeData(settings['filename'], content)
 
             sleep(int(settings['delay']))

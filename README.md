@@ -22,12 +22,12 @@ This is the configuration file used by record_data.py to determine what probes e
 {
 	"host": "localhost",
 	"probes": [{
-		"DHTPin": 4,
-		"DHTModel": 22,
+		"pin": 4,
+		"sensor": 22,
 		"outdoor": "False"
 	},{
-		"DHTPin": 21,
-		"DHTModel": 11,
+		"pin": 21,
+		"sensor": 11,
 		"outdoor": "True"	
 	}],
 	"DataStore": 0,
@@ -36,15 +36,15 @@ This is the configuration file used by record_data.py to determine what probes e
 	"filename": "beedata.csv"
 }
 ```
-The file is built primarily via **find_probes.py** which finds the probes, and setting the config file to write locally.
+The file is built primarily via **find_probes.py** which finds the probes, and sets the config file to write locally.
 
 **gui_config.py** supplements the process by allowing the user to make changes to the file without knowing geek stuff.
 
 ##### config.json variable explanation
 - `host` refers to the API host when the module is running in API mode.
 - `probes` is an array of probes (thermometers, and humidity; currently). Within the array are:
-  - `DHTPin` refers to the Raspberry PI pin the probe is attached to.
-  - `DHTModel` indicates the probe model (currently DHT11, DHT22, AM2302)
+  - `pin` refers to the Raspberry PI pin the probe is attached to.
+  - `,odel` indicates the probe model (currently DHT11, DHT22, AM2302)
   - `outdoor` indicates the location of the probe.
 - `DataStore` informs the system the data is written to a file or an API-based.
 - `delay` is the time in seconds for the process to wait between probe readings.
