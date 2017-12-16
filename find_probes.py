@@ -57,6 +57,5 @@ def find():
 
 if __name__ == '__main__':
     data = loadConfig('config.json')
-    probes = find()
-    data['probes'] = probes
+    data['probes'] = find()
     writeConfig(data, 'config.json')
