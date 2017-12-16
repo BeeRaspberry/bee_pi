@@ -1,5 +1,6 @@
 # Import all the libraries we need to run
 import sys
+import logging
 import RPi.GPIO as GPIO
 import Adafruit_DHT
 from config import *
@@ -10,13 +11,18 @@ GPIO.setwarnings(False)
 possible_pins = {2:[2,3,4,7,8,9,10,11,14,15,17,18,22,23,24,25,27]}
 sensor_types = (Adafruit_DHT.DHT11, Adafruit_DHT.DHT22, Adafruit_DHT.AM2302)
 
+logger = logging.getLogger('find_probes')
+logging.basicConfig(filename='bee_config.log',level=logging.INFO)
+
 
 def find():
     used_pins = []
     probes = []
     seconds = len(sensor_types) * len(possible_pins[GPIO.RPI_REVISION])
 
-    print("starting... be patient this will take about {} seconds".format(seconds))
+    msg = "starting... be patient this will take about {} seconds".format(seconds)
+    logger.info(msg)
+    print(msg)
 
 # Scan for active pins
     for pin in possible_pins[GPIO.RPI_REVISION]:
@@ -27,13 +33,19 @@ def find():
             if h > 2.0 and h < 101.0:
                 probes.append({'sensor': sensor_types[0], 'pin': pin,
                                 'outdoor': False})
-                print("Found for {} on pin, {}".format(sensor_types[0], pin))
+                msg = "Found for {} on pin, {}".format(sensor_types[0], pin)
+                logger.info(msg)
+                print(msg)
             else:
-                print("Found something on pin, {}".format(pin))
+                msg = "Found something on pin, {}".format(pin)
+                logger.info(msg)
+                print(msg)
                 used_pins.append(pin)
         else:
-            print("Nothing found for {} on pin, {}".format(
-                sensor_types[0], pin))
+            msg = "Nothing found for {} on pin, {}".format(
+                sensor_types[0], pin)
+            logger.info(msg)
+            print(msg)
         GPIO.cleanup(pin)
 
     for sensor in sensor_types[2:]:
@@ -44,11 +56,17 @@ def find():
                 if h > 2.0 and h < 101.0:
                     probes.append({'sensor': sensor, 'pin': pin, 'outdoor': False})
                     used_pins.remove(pin)
-                    print("Found for {} on pin, {}".format(sensor, pin))
+                    msg = "Found for {} on pin, {}".format(sensor, pin)
+                    logger.info(msg)
+                    print(msg)
                 else:
-                    print("Found something on pin, {}".format(pin))
+                    msg = "Found something on pin, {}".format(pin)
+                    logger.info(msg)
+                    print(msg)
             else:
-                print("Nothing found for {} on pin, {}".format(sensor,pin))
+                msg = "Nothing found for {} on pin, {}".format(sensor,pin)
+                logger.info(msg)
+                print(msg)
 
             GPIO.cleanup(pin)
 

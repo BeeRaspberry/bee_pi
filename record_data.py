@@ -10,6 +10,8 @@ import logging
 from urllib.request import urlopen
 import Adafruit_DHT
 import RPi.GPIO as GPIO
+from config import *
+
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -40,19 +42,6 @@ def connectDB():
         logger.debug('create db, {}'.format(db_filename))
 
 
-def loadConfig(file_name):
-    config_exists = os.path.exists(file_name)
-    global settings
-
-    if config_exists:
-        with open(file_name) as data_file:
-            logger.debug("Successfully open config file, {}".format(file_name))
-            return json.load(data_file)
-    else:
-        logger.debug("Failed to open config file, {}".format(file_name))
-        return None
-
-
 def writeData(filename, hiveData):
     with open(filename, 'a') as data_file:
         logger.debug("Writing to data to file, {}".format(filename))
@@ -72,7 +61,7 @@ def main():
     logger.debug('starting collecting data')
 #    network = checkForNetworkConnection()
     config_file = 'config.json'
-    settings = loadConfig(config_file)
+    settings = loadConfig(config_file, logger)
     if settings is None:
         logger.error('Config File, {}, is empty. Run gui_config.py'.format(config_file))
         exit(9)
@@ -81,16 +70,16 @@ def main():
 
     logger.debug('configuring probes')
     for probe in settings['probes']:
-        GPIO.setup(probe['DHTPin'], GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+        GPIO.setup(probe['pin'], GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
     while True:
       #  try:
             tmp_probes = []
             for probe in settings['probes']:
-                logger.debug("Checking probe, {}".format(probe['DHTModel']))
+                logger.debug("Checking probe, {}".format(probe['sensor']))
                 RHW, TW = humidity, temperature = \
-                    Adafruit_DHT.read_retry(probe['DHTModel'], probe['DHTPin'])
-                tmp_probes.append({'model': probe['DHTModel'],
+                    Adafruit_DHT.read_retry(probe['sensor'], probe['pin'])
+                tmp_probes.append({'model': probe['sensor'],
                                    'outdoor': probe['outdoor'],
                                    'humidity': RHW, 'temperature': TW})
             content = {'hive': {'id': settings['hiveId']},
