@@ -1,6 +1,7 @@
 import json
 import os
 
+dhtTypes = [{'None': 0}, {'DHT11':11}, {'DHT22':22}, {'AM2302':2302}]
 
 def loadConfig(file_name, logger):
     data = {'host': 'localhost', 'dataStore': 0, 'delay': 300, 'hiveId': 1,
