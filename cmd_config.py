@@ -1,6 +1,5 @@
 import os
-import wx
-import json
+\import json
 import logging
 from config import *
 
@@ -36,9 +35,9 @@ def print_help():
 
 
 def get_settings(settings):
-    settings['hive_id'] = prompt(
+    settings['hiveId'] = prompt(
         message="Enter an unique hive identifier. Current value is {}".
-            format(settings['hive_id']),
+            format(settings['hiveId']),
         errormessage="Enter a valid, positive integer. If you have more than "
                      "one hive these must be unique",
         isvalid=lambda v: int(v)
