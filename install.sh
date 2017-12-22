@@ -40,6 +40,6 @@ if $programname == "find_probes" then /var/log/bee_find_probes.log
 
 EOF
 
-sudo systemctl restart rsyslog
-sudo systemctl daemon-reload
-sudo systemctl start bee_data
+systemctl restart rsyslog
+systemctl daemon-reload
+systemctl start bee_data
