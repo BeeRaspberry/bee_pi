@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-INIT_FILE=/lib/systemd/system/bee_data.service
+INIT_FILE=/usr/lib/systemd/system/bee_data.service
 touch $INIT_FILE
 chmod 0700 $INIT_FILE
 
@@ -11,7 +11,7 @@ chmod 0700 $CONF_FILE
 HOME_DIR=/home/$SUDO_USER
 mkdir $HOME_DIR/bee_data
 
-cat << 'EOF' > $INIT_FILE
+cat << EOF > $INIT_FILE
 [Unit]
 Description=Bee Data Record Service
 After=network.target
