@@ -3,8 +3,10 @@ import json
 import logging
 from config import *
 
-logger = logging.getLogger('gui_config')
+logger = logging.getLogger('cmd_config')
 logging.basicConfig(filename='bee_config.log',level=logging.INFO)
+DATA_DIR=os.environ.get("DATA_DIR", os.path.dirname(
+    os.path.realpath(__file__)))
 
 
 def prompt(message, errormessage, isvalid, default_value=None):
@@ -25,6 +27,7 @@ def prompt(message, errormessage, isvalid, default_value=None):
             print(str(errormessage))
             res = None
     return res
+
 
 def print_help():
     print("This script is to complete the configuration of your bee pi setup.")
@@ -96,10 +99,13 @@ def get_settings(settings):
 
     return settings
 
+
 def main():
-    data = loadConfig('config.json', logger)
+    filename = os.path.join(DATA_DIR, 'config.json')
+    data = loadConfig(filename, logger)
     if print_help():
-        writeConfig(get_settings(data), 'config.json', logger)
+        writeConfig(get_settings(data), filename, logger)
+
 
 if __name__ == '__main__':
     main()

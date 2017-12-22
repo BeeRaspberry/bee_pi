@@ -9,7 +9,10 @@ lstLocation = ['File', 'API']
 lstTypes = ['None', 'DHT11', 'DHT22', 'AM2302']
 
 logger = logging.getLogger('gui_config')
-logging.basicConfig(filename='bee_config.log',level=logging.INFO)
+DATA_DIR=os.environ.get("DATA_DIR", os.path.dirname(
+    os.path.realpath(__file__)))
+logging.basicConfig(filename=os.path.join(DATA_DIR, 'bee_config.log'),
+                    level=logging.INFO)
 
 class GUI(wx.Frame):
     def __init__(self, parent, title, data):
@@ -132,7 +135,7 @@ class GUI(wx.Frame):
                                 type_values[self.dhtType1.GetSelection()],
                                 'outdoor': self.dhtOutdoor1.GetValue()})
 
-        writeConfig(data, 'config.json')
+        writeConfig(data, os.path.join(DATA_DIR, 'config.json'))
         self.Close()
 
     def OnQuit(self, e):
@@ -141,7 +144,7 @@ class GUI(wx.Frame):
 
 def main():
     ex = wx.App()
-    data = loadConfig('config.json', logger)
+    data = loadConfig(os.path.join(DATA_DIR, 'config.json'), logger)
     original = data
     GUI(None, 'Bee Hive Config', data)
     ex.MainLoop()
