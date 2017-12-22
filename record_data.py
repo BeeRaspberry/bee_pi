@@ -17,7 +17,9 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
 logger = logging.getLogger('record_data')
-logging.basicConfig(filename='bee_data.log',level=logging.INFO)
+logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
+DATA_DIR=os.environ.get("DATA_DIR", os.path.dirname(
+    os.path.realpath(__file__)))
 
 
 def checkForNetworkConnection():
@@ -32,7 +34,8 @@ def checkForNetworkConnection():
 
 
 def connectDB():
-    db_filename = 'beedata.db'
+    db_filename = os.path.join(DATA_DIR, 'beedata.db')
+
     db_is_new = not os.path.exists(db_filename)
 
     global conn
@@ -43,6 +46,8 @@ def connectDB():
 
 
 def writeData(filename, hiveData):
+    filename = os.path.join(DATA_DIR, filename)
+
     with open(filename, 'a') as data_file:
         logger.debug("Writing to data to file, {}".format(filename))
         for probe in hiveData['probes']:
@@ -60,10 +65,12 @@ def postDB(hiveData, filename):
 def main():
     logger.debug('starting collecting data')
 #    network = checkForNetworkConnection()
-    config_file = 'config.json'
+    config_file = os.path.join(DATA_DIR, 'config.json')
+
     settings = loadConfig(config_file, logger)
     if settings is None:
-        logger.error('Config File, {}, is empty. Run gui_config.py'.format(config_file))
+        logger.error('Config File, {}, is empty. Run cmd_config.py'.
+                     format(config_file))
         exit(9)
 
     baseURL = 'http://{}:5000/hivedata/'.format(settings['host'])
@@ -89,7 +96,7 @@ def main():
     #            html = requests.post(baseURL, json=content)
     #        else:
             if settings['dataStore'] == 0:
-               writeData(settings['filename'], content)
+                writeData(settings['filename'], content)
 
             sleep(int(settings['delay']))
       #  except:

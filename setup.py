@@ -1,4 +1,4 @@
-from distutils.core import setup
+from distutils.core import setup, find_packages
 
 setup(
     name='bee_pi',
@@ -12,7 +12,6 @@ setup(
     long_description=open('README.txt').read(),
     description='Bee Pi - Data capture for Raspberry PI.',
     install_requires=[
-        "wxPython >= 4.0.0b2",
         "netifaces >= 0.10.6",
         "requests >= 2.18.4",
         "urllib3 >= 1.22",
