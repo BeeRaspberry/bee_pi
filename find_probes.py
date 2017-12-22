@@ -77,6 +77,7 @@ def find():
 
 if __name__ == '__main__':
     filename = os.path.join(DATA_DIR, 'config.json')
-    data = loadConfig(filename)
+    print('Writing Configuration file located at {}'.format(filename))
+    data = loadConfig(filename, logger)
     data['probes'] = find()
-    writeConfig(data, filename)
+    writeConfig(data, filename, logger)
