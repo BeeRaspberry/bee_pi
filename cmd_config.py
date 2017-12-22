@@ -100,12 +100,21 @@ def get_settings(settings):
     return settings
 
 
+def check_for_probes(settings):
+    if 'probes' in settings and len(settings['probes']) > 0:
+        return True
+
+    return False
+
+
 def main():
     filename = os.path.join(DATA_DIR, 'config.json')
     data = loadConfig(filename, logger)
     if print_help():
-        writeConfig(get_settings(data), filename, logger)
-
+        if check_for_probes(data):
+            writeConfig(get_settings(data), filename, logger)
+        else:
+            print("No probes found. Run 'find_probes.py' to find them.")
 
 if __name__ == '__main__':
     main()
