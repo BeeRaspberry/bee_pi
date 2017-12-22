@@ -12,7 +12,9 @@ possible_pins = {2:[2,3,4,7,8,9,10,11,14,15,17,18,22,23,24,25,27]}
 sensor_types = (Adafruit_DHT.DHT11, Adafruit_DHT.DHT22, Adafruit_DHT.AM2302)
 
 logger = logging.getLogger('find_probes')
-logging.basicConfig(filename='bee_config.log',level=logging.INFO)
+logging.basicConfig(level=logging.INFO)
+DATA_DIR=os.environ.get("DATA_DIR", os.path.dirname(
+    os.path.realpath(__file__)))
 
 
 def find():
@@ -74,6 +76,7 @@ def find():
 
 
 if __name__ == '__main__':
-    data = loadConfig('config.json')
+    filename = os.path.join(DATA_DIR, 'config.json')
+    data = loadConfig(filename)
     data['probes'] = find()
-    writeConfig(data, 'config.json')
+    writeConfig(data, filename)

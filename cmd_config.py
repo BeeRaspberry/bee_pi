@@ -4,7 +4,7 @@ import logging
 from config import *
 
 logger = logging.getLogger('cmd_config')
-logging.basicConfig(filename='bee_config.log',level=logging.INFO)
+logging.basicConfig(level=logging.INFO)
 DATA_DIR=os.environ.get("DATA_DIR", os.path.dirname(
     os.path.realpath(__file__)))
 
