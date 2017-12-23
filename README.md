@@ -71,3 +71,10 @@ git clone https://github.com/erikdeirdre/bee_pi.git
 ```bash
 sudo ./install.sh
 ```
+
+## Installation Troubleshooting
+
+| Problem | Solution
+| --- | ---
+| Content from cell 1 | Content from cell
+| test | test 

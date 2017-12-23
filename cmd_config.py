@@ -78,12 +78,12 @@ def get_settings(settings):
         )
 
     for probe in settings['probes']:
-        probe['model'] = prompt(
+        probe['sensor'] = prompt(
             message="Enter the DHT Model for probe on pin, {}. Value is {}".
-                    format(probe['pin'], probe['model']),
+                    format(probe['pin'], probe['sensor']),
             errormessage="Valid values are {}".format(getProbeTypes()),
             isvalid=lambda v: v in getProbeTypes(),
-            default_value=probe['model']
+            default_value=probe['sensor']
         )
 
         outdoor = prompt(
