@@ -8,13 +8,13 @@ import json
 import requests
 import logging
 from urllib.request import urlopen
-#import Adafruit_DHT
-#import RPi.GPIO as GPIO
+import Adafruit_DHT
+import RPi.GPIO as GPIO
 from config import *
 
 
-#GPIO.setmode(GPIO.BCM)
-#GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
 
 logger = logging.getLogger('record_data')
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
@@ -75,7 +75,7 @@ def main():
             content = {'hive': {'id': settings['hiveId']},
                        'probes': tmp_probes}
 
-            if checkForNetworkConnection():
+            if checkForNetworkConnection() and settings['dataStore'] == 1:
                 html = requests.post(baseURL, json=content)
             else:
                 writeData(settings['filename'], content)
