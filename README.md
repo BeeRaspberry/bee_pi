@@ -75,10 +75,7 @@ git clone git@github.com:erikdeirdre/bee_pi.git
 #or
 git clone https://github.com/erikdeirdre/bee_pi.git
 ```
-- change permissions of **install.sh**
- ``` bash 
- chmod 755 install.sh
- ```
+
 - run **install.sh**
 ```bash
 sudo ./install.sh
