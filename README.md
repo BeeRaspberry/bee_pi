@@ -56,6 +56,7 @@ The file is built primarily via **find_probes.py** which finds the probes, and s
 
 ##### config.json variable explained
 - `host` refers to the API host when the module is running in API mode.
+- `port` refers to the API port when the module is running in API mode.
 - `probes` is an array of probes (thermometers, and humidity; currently). Within the array are:
   - `pin` refers to the Raspberry PI pin the probe is attached to.
   - `sensor` indicates the probe model (currently DHT11, DHT22, AM2302)
@@ -66,7 +67,6 @@ The file is built primarily via **find_probes.py** which finds the probes, and s
 - `filename` is the file name used to store the data when the datastore is `0`.
 
 ## Installation
-
 Installation is a three step process.
 
 - clone the repo
@@ -80,6 +80,15 @@ git clone https://github.com/erikdeirdre/bee_pi.git
 ```bash
 sudo ./install.sh
 ```
+
+## Work Flow
+The work flow is simple.
+1. read the configuraton file
+2. check the defined probes for values
+3. record data
+   1. transmit data if API enabled AND network available
+   2. store data locally if API is disabled, network isn't available, or API call failed.
+4. sleep for the configured time; repeat, starting with step 2.
 
 ## Installation Troubleshooting
 

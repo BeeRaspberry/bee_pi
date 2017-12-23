@@ -40,7 +40,7 @@ def writeData(filename, hiveData):
         logger.debug("Writing to data to file, {}".format(filename))
         for probe in hiveData['probes']:
             line = '{},{},{},{},{},{}\n'.format(hiveData['hive']['id'],
-                datetime.utcnow(), probe['model'], probe['outdoor'],
+                datetime.utcnow(), probe['sensor'], probe['outdoor'],
                 probe['temperature'], probe['humidity'])
             data_file.write(line)
 
@@ -56,7 +56,8 @@ def main():
                      format(config_file))
         exit(9)
 
-    baseURL = 'http://{}:5000/hivedata/'.format(settings['host'])
+    baseURL = 'http://{}:{}/hivedata/'.format(settings['host'],
+                                              settings['port'])
 
     logger.debug('configuring probes')
     for probe in settings['probes']:
@@ -79,9 +80,9 @@ def main():
 
             if networkConnected and settings['dataStore'] == 1:
                 try:
-                    html = requests.post(baseURL, json=content)
-                except requests.exceptions.ConnectionError as e:
-                    logger.error('Connection Error: {}'.format(e.strerror))
+                    html = requests.post(baseURL, json=content, timeout=30.0)
+                except requests.exceptions.RequestException as e:
+                    logger.error('Connection Error: {}'.format(e))
                     logger.error('Connection Error. Writing data locally')
                     writeData(settings['filename'], content)
             else:
