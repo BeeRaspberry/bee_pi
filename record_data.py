@@ -75,10 +75,10 @@ def main():
             content = {'hive': {'id': settings['hiveId']},
                        'probes': tmp_probes}
 
-            if settings['dataStore'] == 0:
+            if checkForNetworkConnection():
+                html = requests.post(baseURL, json=content)
+            else:
                 writeData(settings['filename'], content)
-#            else:
-#                html = requests.post(baseURL, json=content)
 
             sleep(int(settings['delay']))
       #  except:
@@ -86,5 +86,4 @@ def main():
 
 
 if __name__ == '__main__':
-    network = checkForNetworkConnection()
-#    main()
+    main()
