@@ -28,7 +28,7 @@ def checkForNetworkConnection():
     for interface in netifaces.interfaces():
         addr = netifaces.ifaddresses(interface)
         if addr[netifaces.AF_INET] != '' and \
-                addr[netifaces.AF_INET]['addr'] != '127.0.0.1':
+                addr[netifaces.AF_INET][0]['addr'] != '127.0.0.1':
             networkConnected = True
     return networkConnected
 
@@ -62,6 +62,8 @@ def main():
     for probe in settings['probes']:
         GPIO.setup(probe['pin'], GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
+    networkConnected = checkForNetworkConnection()
+    
     while True:
       #  try:
             tmp_probes = []
@@ -75,8 +77,14 @@ def main():
             content = {'hive': {'id': settings['hiveId']},
                        'probes': tmp_probes}
 
-            if checkForNetworkConnection() and settings['dataStore'] == 1:
-                html = requests.post(baseURL, json=content)
+            if networkConnected and settings['dataStore'] == 1:
+                try:
+                    html = requests.post(baseURL, json=content)
+                except ConnectionError as e:
+                    logger.error('Connection Error: {}'.format(config_file))
+                    if e.errno == 111:
+                        logger.error('Connection Refused. Switch to local writing')
+                        settings['dataSource'] = 0
             else:
                 writeData(settings['filename'], content)
 
