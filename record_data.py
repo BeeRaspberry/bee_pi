@@ -39,7 +39,7 @@ def writeData(filename, hiveData):
     with open(filename, 'a') as data_file:
         logger.debug("Writing to data to file, {}".format(filename))
         for probe in hiveData['probes']:
-            line = '{},{},{},{},{},{}\n'.format(hiveData['hive']['id'],
+            line = '{},{},{},{},{:.3f},{:.3f}\n'.format(hiveData['hive']['id'],
                 datetime.utcnow(), probe['sensor'], probe['outdoor'],
                 probe['temperature'], probe['humidity'])
             data_file.write(line)
