@@ -33,18 +33,6 @@ def checkForNetworkConnection():
     return networkConnected
 
 
-def connectDB():
-    db_filename = os.path.join(DATA_DIR, 'hivedata.db')
-
-    db_is_new = not os.path.exists(db_filename)
-
-    global conn
-    conn = sqlite3.connect(db_filename)
-
-    if db_is_new:
-        logger.debug('create db, {}'.format(db_filename))
-
-
 def writeData(filename, hiveData):
     filename = os.path.join(DATA_DIR, filename)
 
@@ -55,11 +43,6 @@ def writeData(filename, hiveData):
                 datetime.utcnow(), probe['model'], probe['outdoor'],
                 probe['temperature'], probe['humidity'])
             data_file.write(line)
-
-
-def postDB(hiveData, filename):
-    if settings['DataStore'] == 'File':
-        writeData(hiveData)
 
 
 def main():
