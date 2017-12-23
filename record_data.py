@@ -63,7 +63,7 @@ def main():
         GPIO.setup(probe['pin'], GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
     networkConnected = checkForNetworkConnection()
-    
+
     while True:
       #  try:
             tmp_probes = []
@@ -71,7 +71,7 @@ def main():
                 logger.debug("Checking probe, {}".format(probe['sensor']))
                 RHW, TW = humidity, temperature = \
                     Adafruit_DHT.read_retry(probe['sensor'], probe['pin'])
-                tmp_probes.append({'model': probe['sensor'],
+                tmp_probes.append({'sensor': probe['sensor'],
                                    'outdoor': probe['outdoor'],
                                    'humidity': RHW, 'temperature': TW})
             content = {'hive': {'id': settings['hiveId']},
@@ -80,11 +80,10 @@ def main():
             if networkConnected and settings['dataStore'] == 1:
                 try:
                     html = requests.post(baseURL, json=content)
-                except ConnectionError as e:
-                    logger.error('Connection Error: {}'.format(config_file))
-                    if e.errno == 111:
-                        logger.error('Connection Refused. Switch to local writing')
-                        settings['dataSource'] = 0
+                except requests.exceptions.ConnectionError as e:
+                    logger.error('Connection Error: {}'.format(e.strerror))
+                    logger.error('Connection Error. Writing data locally')
+                    writeData(settings['filename'], content)
             else:
                 writeData(settings['filename'], content)
 
