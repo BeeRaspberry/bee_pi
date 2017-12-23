@@ -76,7 +76,7 @@ def main():
                                    'outdoor': probe['outdoor'],
                                    'humidity': RHW, 'temperature': TW})
             content = {'hive': {'id': settings['hiveId']}, 'dateCreated':
-                         datetime.utcnow(), 'probes': tmp_probes}
+                         datetime.utcnow().__str__(), 'probes': tmp_probes}
 
             if networkConnected and settings['dataStore'] == 1:
                 try:
