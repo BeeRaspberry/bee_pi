@@ -52,3 +52,22 @@ The file is built primarily via **find_probes.py** which finds the probes, and s
 - `delay` is the time in seconds for the process to wait between probe readings.
 - `hiveId` is a unique identifier for those who have multiple hives.
 - `filename` is the file name used to store the data when the datastore is `0`.
+
+## Installation
+
+Installation is a three step process.
+
+- clone the repo
+```bash
+git clone git@github.com:erikdeirdre/bee_pi.git
+#or
+git clone https://github.com/erikdeirdre/bee_pi.git
+```
+- change permissions of **install.sh**
+ ``` bash 
+ chmod 755 install.sh
+ ```
+- run **install.sh**
+```bash
+sudo ./install.sh
+```
