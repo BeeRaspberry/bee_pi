@@ -5,7 +5,11 @@ function setup_prereqs() {
     source $VIRTUALENV/bin/activate
     pip install -r requirements.txt
     python find_probes.py
-    python cmd_config.py
+    if [ $? -eq 0 ]; then
+       python cmd_config.py
+    else
+       RC=1
+    fi
 }
 
 function setup_service() {
@@ -50,6 +54,7 @@ EOF
    systemctl start bee_data
 }
 
+RC=0
 INIT_FILE=/usr/lib/systemd/system/bee_data.service
 CONF_FILE=/etc/rsyslog.d/bee_data.conf
 HOME_DIR=/home/$SUDO_USER
@@ -58,4 +63,6 @@ VIRTUALENV=$HOME_DIR/virtualenv
 [ ! -d $HOME_DIR/bee_data ] && mkdir $HOME_DIR/bee_data
 
 setup_prereqs
-setup_service
+if [ $RC -eq 0 ]; then
+   setup_service
+fi

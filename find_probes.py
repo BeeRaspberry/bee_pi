@@ -82,6 +82,6 @@ if __name__ == '__main__':
     data['probes'] = find()
     writeConfig(data, filename, logger)
     if len(data['probes']) > 0:
-        sys.quit(0)
+        sys.exit(0)
     else:
-        sys.quit(1)
+        sys.exit(1)
