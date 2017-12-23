@@ -34,7 +34,7 @@ def checkForNetworkConnection():
 
 
 def connectDB():
-    db_filename = os.path.join(DATA_DIR, 'beedata.db')
+    db_filename = os.path.join(DATA_DIR, 'hivedata.db')
 
     db_is_new = not os.path.exists(db_filename)
 

@@ -33,7 +33,7 @@ This is the configuration file used by record_data.py to determine what probes e
 	"dataStore": 0,
 	"delay": 300,
 	"hiveId": 1,
-	"filename": "beedata.csv"
+	"filename": "hivedata.csv"
 }
 ```
 The file is built primarily via **find_probes.py** which finds the probes, and sets the config file to write locally.
@@ -46,7 +46,7 @@ The file is built primarily via **find_probes.py** which finds the probes, and s
 - `host` refers to the API host when the module is running in API mode.
 - `probes` is an array of probes (thermometers, and humidity; currently). Within the array are:
   - `pin` refers to the Raspberry PI pin the probe is attached to.
-  - `model` indicates the probe model (currently DHT11, DHT22, AM2302)
+  - `sensor` indicates the probe model (currently DHT11, DHT22, AM2302)
   - `outdoor` indicates the location of the probe.
 - `dataStore` informs the system the data is written to a file or an API-based.
 - `delay` is the time in seconds for the process to wait between probe readings.
@@ -76,5 +76,4 @@ sudo ./install.sh
 
 | Problem | Solution
 | --- | ---
-| Content from cell 1 | Content from cell
-| test | test 
+| N/A | N/A
