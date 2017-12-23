@@ -12,7 +12,13 @@ A GUI program exists to help with the configuration. The UI allows the user to s
 
 ### Main Components
 
-This repo's main components are **config.json**, **find_probes.py**, **gui_config.py**, **cmd_config**, and **record_data.py**.
+This repo's main components are:
+- **config.json**
+- **find_probes.py**
+- **gui_config.py**
+- **cmd_config**
+- **record_data.py**
+- **install.sh**
 
 #### config.json
 
@@ -42,7 +48,13 @@ The file is built primarily via **find_probes.py** which finds the probes, and s
 
 **cmd_config.py** is a command line version of **gui_config.py**.
 
-##### config.json variable explanation
+**install.sh** installs the required components. Steps include:
+- creates the virtualenv environment
+- runs `find_probes.py`
+- executes `cmd_config.py`
+- configures `systemd` so the process runs as a service
+
+##### config.json variable explained
 - `host` refers to the API host when the module is running in API mode.
 - `probes` is an array of probes (thermometers, and humidity; currently). Within the array are:
   - `pin` refers to the Raspberry PI pin the probe is attached to.
