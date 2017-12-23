@@ -9,8 +9,8 @@ def getProbeTypes():
 
 
 def loadConfig(file_name, logger):
-    data = {'host': 'localhost', 'dataStore': 0, 'delay': 300, 'hiveId': 1,
-            'filename': 'hivedata.csv', 'probes': []}
+    data = {'host': 'localhost', 'port': 5000, 'dataStore': 0, 'delay': 300,
+             'hiveId': 1, 'filename': 'hivedata.csv', 'probes': []}
 
     config_exists = os.path.exists(file_name)
 

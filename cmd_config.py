@@ -76,7 +76,13 @@ def get_settings(settings):
             isvalid=lambda v: True,
             default_value=settings['host']
         )
-
+        settings['port'] = prompt(
+            message="Enter the Port to connect to. Current setting is "
+                    "{}".format(settings['port']),
+            errormessage="Port is required.",
+            isvalid=lambda v: True,
+            default_value=settings['port']
+        )
     for probe in settings['probes']:
         probe['sensor'] = prompt(
             message="Enter the DHT Model for probe on pin, {}. Value is {}".
