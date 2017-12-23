@@ -15,13 +15,13 @@ cat << EOF > $INIT_FILE
 [Unit]
 Description=Bee Data Record Service
 After=network.target
-StandardOutput=syslog
-StandardError=syslog
-SyslogIdentifier=bee_data
 
 [Service]
 User=$SUDO_USER
 Group=pi
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=bee_data
 Environment=VIRTUAL_ENV=$HOME_DIR/virtualenv
 Environment=PATH=$VIRTUAL_ENV/bin:$PATH
 Environment=DATA_DIR=$HOME_DIR/bee_data
