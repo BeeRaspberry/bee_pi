@@ -8,13 +8,13 @@ import json
 import requests
 import logging
 from urllib.request import urlopen
-import Adafruit_DHT
-import RPi.GPIO as GPIO
+#import Adafruit_DHT
+#import RPi.GPIO as GPIO
 from config import *
 
 
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
+#GPIO.setmode(GPIO.BCM)
+#GPIO.setwarnings(False)
 
 logger = logging.getLogger('record_data')
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
@@ -28,7 +28,7 @@ def checkForNetworkConnection():
     for interface in netifaces.interfaces():
         addr = netifaces.ifaddresses(interface)
         if addr[netifaces.AF_INET] != '' and \
-                addr[netifaces.AF_INET] != '127.0.0.1':
+                addr[netifaces.AF_INET]['addr'] != '127.0.0.1':
             networkConnected = True
     return networkConnected
 
@@ -75,11 +75,10 @@ def main():
             content = {'hive': {'id': settings['hiveId']},
                        'probes': tmp_probes}
 
-    #        if network:
-    #            html = requests.post(baseURL, json=content)
-    #        else:
             if settings['dataStore'] == 0:
                 writeData(settings['filename'], content)
+#            else:
+#                html = requests.post(baseURL, json=content)
 
             sleep(int(settings['delay']))
       #  except:
@@ -87,4 +86,5 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    network = checkForNetworkConnection()
+#    main()
