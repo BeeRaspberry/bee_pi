@@ -40,7 +40,7 @@ def writeData(filename, hiveData):
         logger.debug("Writing to data to file, {}".format(filename))
         for probe in hiveData['probes']:
             line = '{},{},{},{},{:.3f},{:.3f}\n'.format(hiveData['hive']['id'],
-                datetime.utcnow(), probe['sensor'], probe['outdoor'],
+                    hiveData['dateCreated'], probe['sensor'], probe['outdoor'],
                 probe['temperature'], probe['humidity'])
             data_file.write(line)
 
@@ -75,15 +75,20 @@ def main():
                 tmp_probes.append({'sensor': probe['sensor'],
                                    'outdoor': probe['outdoor'],
                                    'humidity': RHW, 'temperature': TW})
-            content = {'hive': {'id': settings['hiveId']},
-                       'probes': tmp_probes}
+            content = {'hive': {'id': settings['hiveId']}, 'dateCreated':
+                         datetime.utcnow().__str__(), 'probes': tmp_probes}
 
             if networkConnected and settings['dataStore'] == 1:
                 try:
-                    html = requests.post(baseURL, json=content, timeout=30.0)
+                    response = requests.post(baseURL, json=content, timeout=30.0)
+                    if response.status_code != requests.codes.ok:
+                        logger.warning('Invalid Response: code: {}, '
+                                       'response: {}'.format(
+                                        response.status_code,
+                                        response.json()['message']))
                 except requests.exceptions.RequestException as e:
-                    logger.error('Connection Error: {}'.format(e))
-                    logger.error('Connection Error. Writing data locally')
+                    logger.warning('Connection Error: {}'.format(e))
+                    logger.warning('Connection Error. Writing data locally')
                     writeData(settings['filename'], content)
             else:
                 writeData(settings['filename'], content)
