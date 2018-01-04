@@ -12,6 +12,13 @@ function setup_prereqs() {
     fi
 }
 
+function setup_ap() {
+    dpkg --get-selections | grep dnsmasq || apt-get install dnsmasq
+    dpkg --get-selections | grep hostapd || apt-get install hostapd
+    systemctl stop dnsmasq
+    systemctl stop hostapd
+
+}
 function setup_service() {
     touch $INIT_FILE
     chmod 0700 $INIT_FILE
@@ -62,7 +69,8 @@ VIRTUALENV=$HOME_DIR/virtualenv
 
 [ ! -d $HOME_DIR/bee_data ] && mkdir $HOME_DIR/bee_data
 
-setup_prereqs
-if [ $RC -eq 0 ]; then
-   setup_service
-fi
+#setup_prereqs
+#if [ $RC -eq 0 ]; then
+#   setup_service
+#fi
+setup_ap
