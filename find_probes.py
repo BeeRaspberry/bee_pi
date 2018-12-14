@@ -8,7 +8,8 @@ from config import *
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 
-possible_pins = {2:[2,3,4,7,8,9,10,11,14,15,17,18,22,23,24,25,27]}
+possible_pins = {2: [2, 3, 4, 7, 8, 9, 10, 11, 14, 15, 17, 18, 22, 23, 24,
+                     25, 27]}
 sensor_types = (Adafruit_DHT.DHT11, Adafruit_DHT.DHT22, Adafruit_DHT.AM2302)
 
 logger = logging.getLogger('find_probes')
@@ -22,7 +23,8 @@ def find():
     probes = []
     seconds = len(sensor_types) * len(possible_pins[GPIO.RPI_REVISION])
 
-    msg = "starting... be patient this will take about {} seconds".format(seconds)
+    msg = "starting... be patient this will take about {} seconds".\
+        format(seconds)
     logger.info(msg)
     print(msg)
 
@@ -56,7 +58,8 @@ def find():
             h, t = Adafruit_DHT.read_retry(sensor, pin, retries=3)
             if h is not None:
                 if h > 2.0 and h < 101.0:
-                    probes.append({'sensor': sensor, 'pin': pin, 'outdoor': False})
+                    probes.append({'sensor': sensor, 'pin': pin,
+                                   'outdoor': False})
                     used_pins.remove(pin)
                     msg = "Found for {} on pin, {}".format(sensor, pin)
                     logger.info(msg)
@@ -66,7 +69,7 @@ def find():
                     logger.info(msg)
                     print(msg)
             else:
-                msg = "Nothing found for {} on pin, {}".format(sensor,pin)
+                msg = "Nothing found for {} on pin, {}".format(sensor, pin)
                 logger.info(msg)
                 print(msg)
 
