@@ -18,36 +18,36 @@ GPIO.setwarnings(False)
 
 logger = logging.getLogger('record_data')
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
-DATA_DIR=os.environ.get("DATA_DIR", os.path.dirname(
+DATA_DIR = os.environ.get("DATA_DIR", os.path.dirname(
     os.path.realpath(__file__)))
 
 
-def checkForNetworkConnection():
-    networkConnected = False
-    interfaces = netifaces.interfaces()
+def check_for_network_connection():
+    network_connected = False
     for interface in netifaces.interfaces():
         addr = netifaces.ifaddresses(interface)
         if addr[netifaces.AF_INET] != '' and \
                 addr[netifaces.AF_INET][0]['addr'] != '127.0.0.1':
-            networkConnected = True
-    return networkConnected
+            network_connected = True
+    return network_connected
 
 
-def writeData(filename, hiveData):
+def write_data(filename, hive_data):
     filename = os.path.join(DATA_DIR, filename)
 
     with open(filename, 'a') as data_file:
         logger.debug("Writing to data to file, {}".format(filename))
         for probe in hiveData['probes']:
-            line = '{},{},{},{},{:.3f},{:.3f}\n'.format(hiveData['hive']['id'],
-                    hiveData['dateCreated'], probe['sensor'], probe['outdoor'],
-                probe['temperature'], probe['humidity'])
+            line = '{},{},{},{},{:.3f},{:.3f}\n'.\
+                format(hiveData['hive']['id'], hive_data['dateCreated'],
+                       probe['sensor'], probe['outdoor'],
+                       probe['temperature'], probe['humidity'])
             data_file.write(line)
 
 
 def main():
     logger.debug('starting collecting data')
-#    network = checkForNetworkConnection()
+#    network = check_for_network_connection()
     config_file = os.path.join(DATA_DIR, 'config.json')
 
     settings = loadConfig(config_file, logger)
@@ -66,21 +66,20 @@ def main():
     networkConnected = checkForNetworkConnection()
 
     while True:
-      #  try:
-            tmp_probes = []
-            for probe in settings['probes']:
-                logger.debug("Checking probe, {}".format(probe['sensor']))
-                RHW, TW = humidity, temperature = \
-                    Adafruit_DHT.read_retry(probe['sensor'], probe['pin'])
-                tmp_probes.append({'sensor': probe['sensor'],
-                                   'outdoor': probe['outdoor'],
-                                   'humidity': RHW, 'temperature': TW})
+        tmp_probes = []
+        for probe in settings['probes']:
+            logger.debug("Checking probe, {}".format(probe['sensor']))
+            RHW, TW = Adafruit_DHT.read_retry(probe['sensor'], probe['pin'])
+            tmp_probes.append({'sensor': probe['sensor'],
+                               'outdoor': probe['outdoor'],
+                               'humidity': RHW, 'temperature': TW})
             content = {'hive': {'id': settings['hiveId']}, 'dateCreated':
-                         datetime.utcnow().__str__(), 'probes': tmp_probes}
+                       datetime.utcnow().__str__(), 'probes': tmp_probes}
 
             if networkConnected and settings['dataStore'] == 1:
                 try:
-                    response = requests.post(baseURL, json=content, timeout=30.0)
+                    response = requests.post(baseURL, json=content,
+                                             timeout=30.0)
                     if response.status_code != requests.codes.ok:
                         logger.warning('Invalid Response: code: {}, '
                                        'response: {}'.format(
@@ -89,13 +88,11 @@ def main():
                 except requests.exceptions.RequestException as e:
                     logger.warning('Connection Error: {}'.format(e))
                     logger.warning('Connection Error. Writing data locally')
-                    writeData(settings['filename'], content)
+                    write_data(settings['filename'], content)
             else:
-                writeData(settings['filename'], content)
+                write_data(settings['filename'], content)
 
             sleep(int(settings['delay']))
-      #  except:
-      #      print('Error')
 
 
 if __name__ == '__main__':
