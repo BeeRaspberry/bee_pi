@@ -34,7 +34,7 @@ def find():
 # if h is valid then add values to probe, don't add pin to used_pins
             if h > 2.0 and h < 101.0:
                 probes.append({'sensor': sensor_types[0], 'pin': pin,
-                                'outdoor': False})
+                               'outdoor': False})
                 msg = "Found for {} on pin, {}".format(sensor_types[0], pin)
                 logger.info(msg)
                 print(msg)

@@ -44,14 +44,14 @@ def print_help():
 def get_settings(settings):
     settings['hiveId'] = prompt(
         message="Enter an unique hive identifier. Current value is {}".
-            format(settings['hiveId']),
+                format(settings['hiveId']),
         errormessage="Enter a valid, positive integer. If you have more than "
                      "one hive these must be unique",
-        isvalid=lambda v : int(v),
+        isvalid=lambda v: int(v),
         default_value=settings['hiveId']
     )
 
-    settings['delay'] =  prompt(
+    settings['delay'] = prompt(
         message="Enter delay (in seconds) for getting probe readings. Default "
                 "is 900 seconds (15 minutes). Current settings is {}".
                 format(settings['delay']),
@@ -64,11 +64,11 @@ def get_settings(settings):
         message="Use local=0 or API=1 for storing data? Current setting is {}".
                 format(settings['dataStore']),
         errormessage="Valid response is 0 or 1",
-        isvalid=lambda v: v in [0,1],
+        isvalid=lambda v: v in [0, 1],
         default_value=settings['dataStore']
     )
 
-    if  settings['dataStore'] == 1:
+    if settings['dataStore'] == 1:
         settings['host'] = prompt(
             message="Enter the server name to connect to. Current setting is "
                     "{}".format(settings['host']),
@@ -121,6 +121,7 @@ def main():
             writeConfig(get_settings(data), filename, logger)
         else:
             print("No probes found. Run 'find_probes.py' to find them.")
+
 
 if __name__ == '__main__':
     main()
