@@ -15,12 +15,12 @@ jobs:
            . venv/bin/activate
            pip install -r requirements.txt
      - run: mkdir test-reports
-     - run: coverage report && coverage xml -o test-reports/coverage.xml
+     - run: coverage report && coverage xml -o test-reports/coverage/coverage.xml
      - store_test_results:
          path: test-reports
      - store_artifacts:
          path: test-reports
-         destination: tr1
+         destination: tox
      - run:
          command: |
            tox
