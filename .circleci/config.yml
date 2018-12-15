@@ -14,6 +14,12 @@ jobs:
            python3 -m venv venv
            . venv/bin/activate
            pip install -r requirements.txt
+     - run: mkdir test-reports
+     - run: coverage report && coverage xml -o test-reports/coverage.xml
+     - store_test_results:
+         path: test-reports
+     - store_artifacts:
+         path: test-reports
      - run:
          command: |
            tox
