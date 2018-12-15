@@ -17,10 +17,9 @@ jobs:
      - run:
          command: |
            tox
-#language: python
-#python:
-#  - "3.7"
-#install:
-#  - pip install -r requirements.txt
+workflows:
+  version: 2
 
-#script: pytest
+  testproject:
+    jobs:
+      - build
