@@ -20,9 +20,13 @@ jobs:
          path: test-reports
      - store_artifacts:
          path: test-reports
+         destination: tr1
      - run:
          command: |
            tox
+     - run:
+         command: |
+           cat test-reports/tox.xml
 workflows:
   version: 2
 
