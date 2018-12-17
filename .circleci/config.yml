@@ -29,21 +29,18 @@ jobs:
          command: |
            tox
 
-     - store_test_results:
-         path: test-reports
-
      - store_artifacts:
          path: /tmp/artifact-1
          destination: artifact-file
 
-     - store_artifacts:
-         path: /tmp/artifacts
+#     - store_artifacts:
+#         path: /tmp/artifacts
 
-     - store_artifacts:
-         path: ./test-reports/tox
-         
-     - store_artifacts:
-         path: ./test-reports/coverage
+#     - store_artifacts:
+#         path: ./test-reports/tox
+
+#     - store_artifacts:
+#         path: ./test-reports/coverage
 
 workflows:
   version: 2
