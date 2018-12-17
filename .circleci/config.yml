@@ -20,21 +20,21 @@ jobs:
          name: Create Test Reports Directory
          command: |
            mkdir test-reports
-     - run:
-         name: Run Coverage Report
-         command: |
-           coverage report && coverage xml -o test-reports/coverage/coverage.xml
-     - run:
-         name: Run Tox Report
-         command: |
-           tox
+#     - run:
+#         name: Run Coverage Report
+#         command: |
+#           coverage report && coverage xml -o test-reports/coverage/coverage.xml
+#     - run:
+#         name: Run Tox Report
+#         command: |
+#           tox
 
      - store_artifacts:
          path: /tmp/artifact-1
          destination: artifact-file
 
-#     - store_artifacts:
-#         path: /tmp/artifacts
+     - store_artifacts:
+         path: /tmp/artifacts
 
 #     - store_artifacts:
 #         path: ./test-reports/tox
