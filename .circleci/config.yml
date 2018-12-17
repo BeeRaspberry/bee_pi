@@ -38,7 +38,7 @@ jobs:
          destination: artifact-file
 
      - store_artifacts:
-         path: /tmp/artifacts
+         path: ./tmp/artifacts
 
 #     - store_artifacts:
 #         path: ./tests
