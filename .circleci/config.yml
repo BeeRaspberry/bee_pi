@@ -17,9 +17,9 @@ jobs:
      - store_test_results:
          path: test-reports
      - store_artifacts:
-         path: test-reports/tox
+         path: ./test-reports/tox
      - store_artifacts:
-         path: test-reports/coverage
+         path: ./test-reports/coverage
 
 workflows:
   version: 2
