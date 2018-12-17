@@ -5,28 +5,24 @@ jobs:
      - image: resin/raspberrypi3-python
    steps:
      - run:
-         name: The First Step
-         command: |
-           echo 'Hello World!'
-           echo 'This is the delivery pipeline'
-     - run:
          command: |
            python3 -m venv venv
            . venv/bin/activate
            pip install -r requirements.txt
      - run: mkdir test-reports
-     - run: coverage report && coverage xml -o test-reports/coverage/coverage.xml
-     - store_test_results:
-         path: test-reports
-     - store_artifacts:
-         path: test-reports
-         destination: tox
+     - run: coverage report && coverage xml -o tests/coverage/coverage.xml
      - run:
          command: |
            tox
      - run:
          command: |
-           cat test-reports/tox.xml
+           cat tests/tox.xml
+     - store_test_results:
+         path: tests
+     - store_artifacts:
+         path: tests
+         destination: tox
+         
 workflows:
   version: 2
 
