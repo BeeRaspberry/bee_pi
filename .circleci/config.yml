@@ -7,9 +7,10 @@ jobs:
      - run:
          name: Creating Dummy Artifacts
          command: |
-           echo "my artifact file" > /tmp/artifact-1;
-           mkdir /tmp/artifacts;
-           echo "my artifact files in a dir" > /tmp/artifacts/artifact-2;
+           mkdir tmp
+           echo "my artifact file" > tmp/artifact-1;
+           mkdir tmp/artifacts;
+           echo "my artifact files in a dir" > tmp/artifacts/artifact-2;
      - run:
          name: Install Virtual Environment
          command: |
@@ -30,14 +31,14 @@ jobs:
 #           tox
 
      - store_test_results:
-          path: tests
+          path: tmp
 
      - store_artifacts:
-         path: ./tests/artifact-1
+         path: ./tmp/artifact-1
          destination: artifact-file
 
      - store_artifacts:
-         path: /tests/artifacts
+         path: /tmp/artifacts
 
 #     - store_artifacts:
 #         path: ./tests
