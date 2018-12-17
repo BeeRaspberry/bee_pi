@@ -23,7 +23,7 @@ jobs:
          destination: tox
      - run:
          command: |
-           tox -e py36
+           tox
      - run:
          command: |
            cat test-reports/tox.xml

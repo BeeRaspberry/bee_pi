@@ -2,9 +2,11 @@ from config import get_probe_types, write_config, load_config
 
 
 def test_write_config():
-    settings = {'hiveId': 123, 'delay': 30, 'dataStore': 0,
-                'host': 'localhost', 'port': 1280,
-                'probes': [{'sensor': 1, 'outdoor': 'Y'}]}
+    settings = { "host": "localhost", "probes": [
+        {"pin": 4, "sensor": 22, "outdoor": "False"}, {"pin": 21, "sensor": 11,
+                                                       "outdoor": "True"}],
+                 "dataStore": 0, "delay": 300, "hiveId": 1,
+                 "filename": "hivedata.csv"}
     write_config(settings, 'tempfile.json')
 
     file_settings = load_config('tempfile.json')
