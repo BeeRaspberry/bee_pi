@@ -5,19 +5,43 @@ jobs:
      - image: resin/raspberrypi3-python
    steps:
      - run:
+         name: Creating Dummy Artifacts
+         command: |
+           echo "my artifact file" > /tmp/artifact-1;
+           mkdir /tmp/artifacts;
+           echo "my artifact files in a dir" > /tmp/artifacts/artifact-2;
+     - run:
+         name: Install Virtual Environment
          command: |
            python3 -m venv venv
            . venv/bin/activate
            pip install -r requirements.txt
-     - run: mkdir test-reports
-     - run: coverage report && coverage xml -o test-reports/coverage/coverage.xml
      - run:
+         name: Create Test Reports Directory
+         command: |
+           mkdir test-reports
+     - run:
+         name: Run Coverage Report
+         command: |
+           coverage report && coverage xml -o test-reports/coverage/coverage.xml
+     - run:
+         name: Run Tox Report
          command: |
            tox
+
      - store_test_results:
          path: test-reports
+
+     - store_artifacts:
+         path: /tmp/artifact-1
+         destination: artifact-file
+
+     - store_artifacts:
+         path: /tmp/artifacts
+
      - store_artifacts:
          path: ./test-reports/tox
+         
      - store_artifacts:
          path: ./test-reports/coverage
 
