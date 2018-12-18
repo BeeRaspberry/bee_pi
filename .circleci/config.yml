@@ -11,16 +11,16 @@ jobs:
            echo "my artifact file" > tmp/artifact-1;
            mkdir tmp/artifacts;
            echo "my artifact files in a dir" > tmp/artifacts/artifact-2;
-     - run:
-         name: Install Virtual Environment
-         command: |
-           python3 -m venv venv
-           . venv/bin/activate
-           pip install -r requirements.txt
-     - run:
-         name: Create Test Reports Directory
-         command: |
-           mkdir tests
+#     - run:
+#         name: Install Virtual Environment
+#         command: |
+#           python3 -m venv venv
+#           . venv/bin/activate
+#           pip install -r requirements.txt
+#     - run:
+#         name: Create Test Reports Directory
+#         command: |
+#           mkdir tests
 #     - run:
 #         name: Run Coverage Report
 #         command: |
