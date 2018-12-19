@@ -21,7 +21,7 @@ jobs:
       - run:
           name: Run Tests
           command: |
-            py.test tests/test_config.py --junitxml=test-reports/tox/tox.xml
+            pytest test_config.py --junitxml=test-reports/tox/tox.xml
 #            tox
 
       - store_test_results:

@@ -7,7 +7,6 @@ logger = logging.getLogger(__name__)
 dhtTypes = [{'None': 0}, {'DHT11': 11}, {'DHT22': 22}, {'AM2302': 2302}]
 dhtTypesValues = [0, 11, 22, 2302]
 
-
 def get_probe_types():
     return dhtTypesValues
 

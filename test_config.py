@@ -1,4 +1,4 @@
-from config import get_probe_types, write_config, load_config
+from config import (get_probe_types, write_config, load_config)
 
 
 def test_write_config():
