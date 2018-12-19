@@ -6,7 +6,7 @@ jobs:
     #      - image: resin/raspberrypi3-python
     steps:
       - checkout
-      - mkdir test-reports
+      - run: mkdir test-reports
       - run:
           name: Install Virtual Environment
           command: |
