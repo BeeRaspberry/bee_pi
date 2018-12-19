@@ -1,0 +1,30 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/python:3.7
+    #      - image: resin/raspberrypi3-python
+    steps:
+      - checkout
+      - run: mkdir test-reports
+      - run:
+          name: Install Virtual Environment
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
+            sudo pip install pytest
+#      - run:
+#          name: Run Coverage Report
+#          command: |
+#            coverage report && coverage xml -o test-reports/coverage/coverage.xml
+      - run:
+          name: Run Tests
+          command: |
+            pytest test_config.py --junitxml=test-reports/tox/tox.xml
+#            tox
+
+      - store_test_results:
+          path: test-reports/
+      - store_artifacts:
+          path: test-reports/

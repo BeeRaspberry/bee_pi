@@ -5,18 +5,11 @@ from config import *
 
 logger = logging.getLogger('cmd_config')
 logging.basicConfig(level=logging.INFO)
-DATA_DIR=os.environ.get("DATA_DIR", os.path.dirname(
+DATA_DIR = os.environ.get("DATA_DIR", os.path.dirname(
     os.path.realpath(__file__)))
 
 
 def prompt(message, errormessage, isvalid, default_value=None):
-    """Prompt for input given a message and return that value after verifying the input.
-
-    Keyword arguments:
-    message -- the message to display when asking the user for the value
-    errormessage -- the message to display when the value fails validation
-    isvalid -- a function that returns True if the value given by the user is valid
-    """
     res = None
     while res is None:
         res = input(str(message)+': ')
@@ -30,7 +23,8 @@ def prompt(message, errormessage, isvalid, default_value=None):
 
 
 def print_help():
-    print("This script is to complete the configuration of your bee pi setup.")
+    print("This script is to complete the configuration of your bee pi "
+          "setup.")
     print("If you prefer, you may manually update the config file, "
           "'config.json'")
     print("\n")
@@ -87,15 +81,15 @@ def get_settings(settings):
         probe['sensor'] = prompt(
             message="Enter the DHT Model for probe on pin, {}. Value is {}".
                     format(probe['pin'], probe['sensor']),
-            errormessage="Valid values are {}".format(getProbeTypes()),
-            isvalid=lambda v: v in getProbeTypes(),
+            errormessage="Valid values are {}".format(get_probe_types()),
+            isvalid=lambda v: v in get_probe_types(),
             default_value=probe['sensor']
         )
 
         outdoor = prompt(
             message="Is the probe outside the hive (Y/N)? Default=Y",
             errormessage="Valid values are Y or N",
-            isvalid=lambda v: v.upper() in ('Y','N'),
+            isvalid=lambda v: v.upper() in ('Y', 'N'),
             default_value='Y'
         )
         if outdoor == "N":
@@ -115,10 +109,10 @@ def check_for_probes(settings):
 
 def main():
     filename = os.path.join(DATA_DIR, 'config.json')
-    data = loadConfig(filename, logger)
+    data = load_config(filename)
     if print_help():
         if check_for_probes(data):
-            writeConfig(get_settings(data), filename, logger)
+            write_config(get_settings(data), filename, logger)
         else:
             print("No probes found. Run 'find_probes.py' to find them.")
 
