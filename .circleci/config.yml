@@ -19,9 +19,10 @@ jobs:
 #          command: |
 #            coverage report && coverage xml -o test-reports/coverage/coverage.xml
       - run:
-          name: Run Tox Report
+          name: Run Tests
           command: |
-            tox
+            python -m pytest --junitxml=test-reports/tox/tox.xml
+#            tox
 
       - store_test_results:
           path: test-reports/
