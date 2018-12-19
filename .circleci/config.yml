@@ -12,6 +12,7 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
+            pip install coverage
       - run:
           name: Run Coverage Report
           command: |
@@ -20,7 +21,7 @@ jobs:
           name: Run Tox Report
           command: |
             tox
-            
+
       - store_test_results:
           path: tests
       - store_artifacts:
