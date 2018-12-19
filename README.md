@@ -1,4 +1,5 @@
 # bee_pi
+[![CircleCI](https://circleci.com/gh/BeeRaspberry/bee_pi.svg?style=svg)](https://circleci.com/gh/BeeRaspberry/bee_pi)
 
 Bee PI is one component of a Python-based application for monitoring a bee hive using a Raspberry PI.
 
