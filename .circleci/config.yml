@@ -14,10 +14,10 @@ jobs:
             . venv/bin/activate
             pip install -r requirements.txt
             sudo pip install codecov
-      - run:
-          name: Run Coverage Report
-          command: |
-            coverage report && coverage xml -o test-reports/coverage/coverage.xml
+#      - run:
+#          name: Run Coverage Report
+#          command: |
+#            coverage report && coverage xml -o test-reports/coverage/coverage.xml
       - run:
           name: Run Tox Report
           command: |
