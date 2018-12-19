@@ -1,51 +1,46 @@
-version: 2.0
+version: 2
 jobs:
- build:
-   docker:
-     - image: resin/raspberrypi3-python
-   steps:
-     - run:
-         name: Creating Dummy Artifacts
-         command: |
-           mkdir tmp
-           echo "my artifact file" > tmp/artifact-1;
-           mkdir tmp/artifacts;
-           echo "my artifact files in a dir" > tmp/artifacts/artifact-2;
-#     - run:
-#         name: Install Virtual Environment
-#         command: |
-#           python3 -m venv venv
-#           . venv/bin/activate
-#           pip install -r requirements.txt
-#     - run:
-#         name: Create Test Reports Directory
-#         command: |
-#           mkdir tests
-#     - run:
-#         name: Run Coverage Report
-#         command: |
-#           coverage report && coverage xml -o tests/coverage/coverage.xml
-#     - run:
-#         name: Run Tox Report
-#         command: |
-#           tox
-
-     - store_test_results:
-          path: tmp
-
-     - store_artifacts:
-         path: ./tmp/artifact-1
-         destination: artifact-file
-
-     - store_artifacts:
-         path: ./tmp/artifacts
-
-#     - store_artifacts:
-#         path: ./tests
-
-workflows:
-  version: 2
-
-  testproject:
-    jobs:
-      - build
+  build:
+    docker:
+      - image: circleci/python:3.6.2-stretch-browsers
+        environment:
+          FLASK_CONFIG: testing
+          TEST_DATABASE_URL: postgresql://ubuntu@localhost/circle_test?sslmode=disable
+      - image: circleci/postgres:9.6.5-alpine-ram
+        environment:
+          POSTGRES_USER: ubuntu
+          POSTGRES_DB: circle_test
+          POSTGRES_PASSWORD: ""
+    steps:
+      - checkout
+      - run: mkdir test-reports
+      - run:
+          name: Download Selenium
+          command: |
+            curl -O http://selenium-release.storage.googleapis.com/3.5/selenium-server-standalone-3.5.3.jar
+      - run:
+          name: Start Selenium
+          command: |
+            java -jar selenium-server-standalone-3.5.3.jar -log test-reports/selenium.log
+          background: true
+      - restore_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "requirements/dev.txt" }}
+      - run:
+          name: Install Python deps in a venv
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements/dev.txt
+      - save_cache:
+          key: deps1-{{ .Branch }}-{{ checksum "requirements/dev.txt" }}
+          paths:
+            - "venv"
+      - run:
+          command: |
+            . venv/bin/activate
+            python manage.py test
+      - store_artifacts:
+          path: test-reports/
+          destination: tr1
+      - store_test_results:
+          path: test-reports/
