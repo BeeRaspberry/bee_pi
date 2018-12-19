@@ -13,7 +13,7 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
-            sudo pip install codecov
+            sudo pip install pytest
 #      - run:
 #          name: Run Coverage Report
 #          command: |
