@@ -2,10 +2,11 @@ version: 2
 jobs:
   build:
     docker:
-      - image: circleci/python:3.6.2-stretch-browsers
+      - image: circleci/python:3.7
     #      - image: resin/raspberrypi3-python
     steps:
       - checkout
+      - mkdir test-reports
       - run:
           name: Install Virtual Environment
           command: |
@@ -13,16 +14,17 @@ jobs:
             . venv/bin/activate
             pip install -r requirements.txt
             pip install coverage
+            which coverage
       - run:
           name: Run Coverage Report
           command: |
-            coverage report && coverage xml -o tests/coverage/coverage.xml
+            coverage report && coverage xml -o test-reports/coverage/coverage.xml
       - run:
           name: Run Tox Report
           command: |
             tox
 
       - store_test_results:
-          path: tests
+          path: test-reports/
       - store_artifacts:
-          path: ./tests
+          path: test-reports/
