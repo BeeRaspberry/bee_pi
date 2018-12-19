@@ -2,7 +2,8 @@ version: 2
 jobs:
   build:
     docker:
-      - image: resin/raspberrypi3-python
+      - image: circleci/python:3.6.2-stretch-browsers
+    #      - image: resin/raspberrypi3-python
     steps:
       - checkout
       - run:
