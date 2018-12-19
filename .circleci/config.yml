@@ -18,18 +18,18 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
-#     - run:
-#         name: Create Test Reports Directory
-#         command: |
-#           mkdir tests
-#     - run:
-#         name: Run Coverage Report
-#         command: |
-#           coverage report && coverage xml -o tests/coverage/coverage.xml
-#     - run:
-#         name: Run Tox Report
-#         command: |
-#           tox
+      - run:
+          name: Create Test Reports Directory
+          command: |
+            mkdir tests
+      - run:
+          name: Run Coverage Report
+          command: |
+            coverage report && coverage xml -o tests/coverage/coverage.xml
+      - run:
+          name: Run Tox Report
+          command: |
+            tox
 
       - store_test_results:
           path: tmp
