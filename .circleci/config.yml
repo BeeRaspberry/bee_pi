@@ -22,6 +22,7 @@ jobs:
       - run:
           name: Run Tests
           command: |
+            export PYTHONPATH=`pwd`:$PYTHONPATH
             pytest tests/test_config.py --junitxml=test-reports/tox/tox.xml
             coveralls
 #            tox
