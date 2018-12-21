@@ -14,10 +14,11 @@ jobs:
             . venv/bin/activate
             pip install -r requirements.txt
             sudo pip install pytest
-#      - run:
-#          name: Run Coverage Report
-#          command: |
-#            coverage report && coverage xml -o test-reports/coverage/coverage.xml
+      - run:
+          name: Run Coverage Report
+          command: |
+            coverage report && coverage xml -o test-reports/coverage/coverage.xml
+            coveralls
       - run:
           name: Run Tests
           command: |
