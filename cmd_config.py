@@ -1,7 +1,4 @@
-import os
-import json
-import logging
-from config import *
+from bee_pi.config import *
 
 logger = logging.getLogger('cmd_config')
 logging.basicConfig(level=logging.INFO)

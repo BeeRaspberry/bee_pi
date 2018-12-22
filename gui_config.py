@@ -1,8 +1,5 @@
-import os
 import wx
-import json
-import logging
-from config import *
+from bee_pi.config import *
 #from find_probes import find
 
 lstLocation = ['File', 'API']

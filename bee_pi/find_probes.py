@@ -1,9 +1,8 @@
 # Import all the libraries we need to run
 import sys
-import logging
 import RPi.GPIO as GPIO
 import Adafruit_DHT
-from config import *
+from bee_pi.config import *
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
