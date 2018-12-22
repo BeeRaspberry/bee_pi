@@ -28,7 +28,7 @@ jobs:
 #            pytest tests/test_config.py --junitxml=test-reports/tox/tox.xml --cov=bee_pi format=coverage --cover-xml
 #            coveralls
 #            tox
-      -
+
       - store_test_results:
           path: test-reports/
       - store_artifacts:
