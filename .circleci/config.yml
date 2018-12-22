@@ -35,13 +35,13 @@ jobs:
             coveralls
 ###
 #            coverage run -m pytest --cov=bee_pi --cov-report=xml:test-reports/coverage.xml
-#            pytest tests/test_config.py --junitxml=test-reports/tox/tox.xml --cov=bee_pi format=coverage --cover-xml
+#            pytest tests/test_config_module.py --junitxml=test-reports/tox/tox.xml --cov=bee_pi format=coverage --cover-xml
 #      - run:
 #          name: Run Tests
 #          command: |
 #            tox
 #            coveralls
-#            pytest tests/test_config.py --junitxml=test-reports/tox/tox.xml --cov=bee_pi format=coverage --cover-xml
+#            pytest tests/test_config_module.py --junitxml=test-reports/tox/tox.xml --cov=bee_pi format=coverage --cover-xml
 >>>>>>> origin/master
 
       - store_test_results:
