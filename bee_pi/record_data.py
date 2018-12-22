@@ -1,16 +1,11 @@
 # Import all the libraries we need to run
-import sys
-import os
 from time import sleep
 from datetime import datetime
 import netifaces
-import json
 import requests
-import logging
-from urllib.request import urlopen
 import Adafruit_DHT
 import RPi.GPIO as GPIO
-from config import *
+from bee_pi.config import *
 
 
 GPIO.setmode(GPIO.BCM)

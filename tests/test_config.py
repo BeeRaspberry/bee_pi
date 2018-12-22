@@ -1,4 +1,4 @@
-from config import (get_probe_types, write_config, load_config)
+from bee_pi.config import (get_probe_types, write_config, load_config)
 
 
 def test_write_config():
@@ -9,6 +9,7 @@ def test_write_config():
                  "filename": "hivedata.csv"}
     write_config(settings, 'tempfile.json')
 
+# tests load_config method as well
     file_settings = load_config('tempfile.json')
     assert settings == file_settings
 
