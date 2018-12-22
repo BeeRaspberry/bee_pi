@@ -1,17 +1,10 @@
 language: python
-
 python:
-  - "3.5"
-  - "3.6"
-
+  - "3.7-dev"
 install:
   - pip install -r requirements.txt
-  - pip install tox-travis pytest pytest-cov coveralls
-
+  - pip install pytest pytest-cov coveralls
 script:
-  - tox
   - coverage run -m pytest --cov=bee_pi
-  - coverage report -m
-
 after_success:
   - coveralls
