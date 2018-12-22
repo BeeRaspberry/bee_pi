@@ -1,0 +1,3 @@
+[run]
+include = bee_pi/*
+omit = *migrations*, *tests*
