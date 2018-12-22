@@ -13,7 +13,7 @@ sensor_types = (Adafruit_DHT.DHT11, Adafruit_DHT.DHT22, Adafruit_DHT.AM2302)
 
 logger = logging.getLogger('find_probes')
 logging.basicConfig(level=logging.INFO)
-DATA_DIR=os.environ.get("DATA_DIR", os.path.dirname(
+DATA_DIR = os.environ.get("DATA_DIR", os.path.dirname(
     os.path.realpath(__file__)))
 
 
@@ -29,7 +29,7 @@ def find():
 
 # Scan for active pins
     for pin in possible_pins[GPIO.RPI_REVISION]:
-        GPIO.setup(pin, GPIO.IN, pull_up_down = GPIO.PUD_DOWN)
+        GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         h, t = Adafruit_DHT.read_retry(sensor_types[0], pin, retries=3)
         if h is not None and t is not None:
 # if h is valid then add values to probe, don't add pin to used_pins
@@ -80,9 +80,9 @@ def find():
 if __name__ == '__main__':
     filename = os.path.join(DATA_DIR, 'config.json')
     print('Writing Configuration file located at {}'.format(filename))
-    data = loadConfig(filename, logger)
+    data = load_config(filenam)
     data['probes'] = find()
-    writeConfig(data, filename, logger)
+    write_config(data, filename)
     if len(data['probes']) > 0:
         sys.exit(0)
     else:

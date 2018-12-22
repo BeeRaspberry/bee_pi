@@ -7,7 +7,7 @@ setup(
     author_email='pwhite@delpwhite.org',
     maintainer='Peter White',
     maintainer_email='pwhite@delpwhite.org',
-    packages=['bee_pi',],
+    packages=['bee_pi'],
     license='Creative Commons Attribution-Noncommercial-Share Alike license',
     long_description=open('README.txt').read(),
     description='Bee Pi - Data capture for Raspberry PI.',
@@ -16,5 +16,4 @@ setup(
         "requests >= 2.18.4",
         "urllib3 >= 1.22",
     ],
-    install_script='setup/redhat/install.sh'
 )
