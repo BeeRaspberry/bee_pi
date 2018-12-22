@@ -1,5 +1,4 @@
 # bee_pi
-[![CircleCI](https://circleci.com/gh/BeeRaspberry/bee_pi.svg?style=svg)](https://circleci.com/gh/BeeRaspberry/bee_pi)
 [![Build Status](https://travis-ci.org/BeeRaspberry/bee_pi.svg?branch=add_tests)](https://travis-ci.org/BeeRaspberry/bee_pi)
 [![Coverage Status](https://coveralls.io/repos/github/BeeRaspberry/bee_pi/badge.svg)](https://coveralls.io/github/BeeRaspberry/bee_pi)
 
