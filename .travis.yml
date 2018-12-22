@@ -10,7 +10,7 @@ install:
 
 script:
   - tox
-  -coverage run -m pytest --cov=bee_pi
+  - coverage run -m pytest --cov=bee_pi
   - coverage report -m
 
 after_success:
