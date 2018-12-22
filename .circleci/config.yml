@@ -18,7 +18,7 @@ jobs:
           name: Run Test with Coverage Report
 #            export PYTHONPATH=`pwd`:$PYTHONPATH
           command: |
-            coverage run -m pytest --cov=bee_pi --cov-report=term-missing
+            coverage run -m pytest --pep8 --cov=bee_pi --cov-report=xml:test-reports/coverage.xml
             coveralls
 #            pytest tests/test_config.py --junitxml=test-reports/tox/tox.xml --cov=bee_pi format=coverage --cover-xml
 #      - run:
