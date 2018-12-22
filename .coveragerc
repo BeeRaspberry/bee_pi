@@ -3,6 +3,8 @@ branch = True
 omit =
     # omit site-packages directory anywhere
     */site-packages/*
+include = *.py
+
 [report]
 # Regexes for lines to exclude from consideration
 exclude_lines =
