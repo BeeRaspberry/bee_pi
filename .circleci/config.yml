@@ -22,6 +22,7 @@ jobs:
 ###
 #            coverage run -m pytest --cov=bee_pi --cov-report=xml:test-reports/coverage.xml
 #            pytest tests/test_config.py --junitxml=test-reports/tox/tox.xml --cov=bee_pi format=coverage --cover-xml
+      - run:
           name: Run Tests
           command: |
             tox
