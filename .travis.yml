@@ -5,4 +5,4 @@ install:
   - pip install -r requirements.txt
   - pip install pytest pytest-cov python-coveralls
 script:
-  - pytest
+  - coverage run -m pytest --cov=bee_pi --cov-report=xml:.coverage
