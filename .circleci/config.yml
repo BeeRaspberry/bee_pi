@@ -19,7 +19,7 @@ jobs:
 #            export PYTHONPATH=`pwd`:$PYTHONPATH
           command: |
 #            coverage run -m pytest --cov=bee_pi --cov-report=xml:test-reports/coverage.xml
-            py.test --cov bee_pi --pep8 --cov-report=xml:.coverage
+            py.test --cov bee_pi --cov-report=xml:.coverage
             cp .coverage test-reports/coverage.xml
             coveralls
 #            pytest tests/test_config.py --junitxml=test-reports/tox/tox.xml --cov=bee_pi format=coverage --cover-xml
