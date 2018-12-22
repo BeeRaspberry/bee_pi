@@ -17,8 +17,7 @@ jobs:
       - run:
           name: Run Test with Coverage Report
           command: |
-            coverage run -m pytest --cov=bee_pi --cov-report=xml:.coverage
-            cp .coverage test-reports/coverage.xml
+            coverage run -m pytest --cov=bee_pi --cov-report=xml:test-reports/coverage.xml
             coveralls
 #            coverage run -m pytest --cov=bee_pi --cov-report=xml:test-reports/coverage.xml
 #            pytest tests/test_config.py --junitxml=test-reports/tox/tox.xml --cov=bee_pi format=coverage --cover-xml
