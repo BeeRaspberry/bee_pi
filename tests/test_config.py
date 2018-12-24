@@ -15,4 +15,4 @@ def test_write_config():
 
 
 def test_get_probe_types():
-    assert get_probe_types() == [0, 11, 22, 2302]
+    assert get_probe_types() == ['0', '11', '22', '2302']
