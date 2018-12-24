@@ -2,7 +2,7 @@
 import sys
 import RPi.GPIO as GPIO
 import Adafruit_DHT
-from bee_pi.config import *
+from config import *
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)

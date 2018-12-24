@@ -1,5 +1,5 @@
 import wx
-from bee_pi.config import *
+from config import *
 #from find_probes import find
 
 lstLocation = ['File', 'API']

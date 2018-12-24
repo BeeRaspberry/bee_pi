@@ -1,6 +1,6 @@
 # Import all the libraries we need to run
 from time import sleep
-from bee_pi.config import *
+from config import *
 
 from datetime import datetime
 import platform
@@ -8,7 +8,7 @@ import netifaces
 import requests
 
 # TODO: Need to run this on a PI.
-if platform.system() in 'raspberry':
+if 'armv' in platform.machine():
     import Adafruit_DHT
     import RPi.GPIO as GPIO
 

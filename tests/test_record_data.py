@@ -1,7 +1,4 @@
-import json
-from datetime import datetime
-
-from bee_pi.record_data import (check_for_network_connection, write_data)
+from record_data import (check_for_network_connection)
 
 
 def test_check_network_connection():
