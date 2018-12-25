@@ -26,23 +26,23 @@ Description=Bee Data Record Service
 After=network.target
 
 [Service]
-User=${SUDO_USER}
+User=${USER}
 Group=pi
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=bee_data
 Environment=VIRTUAL_ENV=${VIRTUALENV}
 Environment=PATH=${VIRTUAL_ENV}/bin:${PATH}
-Environment=DATA_DIR=${HOME_DIR}/bee_data
-ExecStart=${VIRTUALENV}/bin/python ${HOME_DIR}/git/bee_pi/record_data.py
+Environment=DATA_DIR=${HOME}/bee_data
+ExecStart=${VIRTUALENV}/bin/python ${HOME}/git/bee_pi/record_data.py
 Restart=always
 
 [Install]
 WantedBy=multi-user.target
 
 EOF
-}
-cat << 'EOF' > ${CONF_FILE
+
+cat << 'EOF' > ${CONF_FILE}
 if $programname == "bee_data" then /var/log/bee_data.log
 if $programname == "cmd_config" then /var/log/bee_cmd_config.log
 if $programname == "find_probes" then /var/log/bee_find_probes.log
@@ -57,10 +57,9 @@ EOF
 RC=0
 INIT_FILE=/usr/lib/systemd/system/bee_data.service
 CONF_FILE=/etc/rsyslog.d/bee_data.conf
-HOME_DIR=/home/${SUDO_USER}
-VIRTUALENV=${HOME_DIR}/virtualenv
+VIRTUALENV=${HOME}/virtualenv
 
-[[ ! -d ${HOME_DIR}/bee_data ]] && mkdir ${HOME_DIR}/bee_data
+[[ ! -d ${HOME}/bee_data ]] && mkdir ${HOME}/bee_data
 
 setup_prereqs
 if [[ ${RC} -eq 0 ]]; then

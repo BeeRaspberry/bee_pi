@@ -48,7 +48,7 @@ def main():
     logger.debug('starting collecting data')
     config_file = os.path.join(DATA_DIR, 'config.json')
 
-    settings = load_config(config_file, logger)
+    settings = load_config(config_file)
     if settings is None:
         logger.error('Config File, {}, is empty. Run cmd_config.py'.
                      format(config_file))

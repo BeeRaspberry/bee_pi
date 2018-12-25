@@ -8,3 +8,11 @@ script:
   - python -m pytest --cov .
 after_success:
   - coveralls
+  - tar -zcvf raspberry_files.tgz cmd_config.py config.py find_probes.py install.sh record_data.py
+deploy:
+  provider: releases
+  api_key: "GITHUB OAUTH TOKEN"
+  file: raspberry_files.tgz
+  skip_cleanup: true
+  on:
+    tags: true
