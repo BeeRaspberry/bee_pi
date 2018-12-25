@@ -17,7 +17,7 @@ if 'armv' in platform.machine():
 
 logger = logging.getLogger('record_data')
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
-DATA_DIR = os.environ.get("DATA_DIR", os.path.dirname(
+DATA_DIR = os.environ.getenv("DATA_DIR", os.path.dirname(
     os.path.realpath(__file__)))
 
 
@@ -46,7 +46,7 @@ def write_data(filename, hive_data):
 
 def main():
     logger.debug('starting collecting data')
-    config_file = os.path.join(DATA_DIR, 'config.json')
+    config_file = os.environ.getenv("CONFIG_FILE", 'config.json')
 
     settings = load_config(config_file)
     if settings is None:

@@ -53,6 +53,7 @@ StandardError=syslog
 SyslogIdentifier=bee_data
 Environment=VIRTUAL_ENV=${VIRTUALENV}
 Environment=PATH=${VIRTUAL_ENV}/bin:${PATH}
+Environment=CONFIG_FILE=${BEE_DIR}/config.json
 Environment=DATA_DIR=${BEE_DATA}
 ExecStart=${VIRTUALENV}/bin/python ${BEE_SRC}/record_data.py
 Restart=always
@@ -102,6 +103,7 @@ CONF_FILE=/etc/rsyslog.d/bee_data.conf
 BEE_DIR=/opt/bee_pi
 BEE_DATA=${BEE_DIR}/bee_data
 BEE_SRC=${BEE_DIR}/src
+export CONFIG_FILE=${BEE_DIR}/config.json
 VIRTUALENV=${BEE_DIR}/virtualenv
 
 [[ ! -d ${BEE_DATA} ]] && mkdir -p ${BEE_DATA}
