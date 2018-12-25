@@ -3,4 +3,3 @@ requests==2.21.0
 urllib3==1.24.1
 Adafruit-DHT==1.4.0
 RPi.GPIO==0.6.5
-pkg-resources=0.0.0
