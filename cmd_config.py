@@ -2,7 +2,7 @@ from config import *
 
 logger = logging.getLogger('cmd_config')
 logging.basicConfig(level=logging.INFO)
-DATA_DIR = os.environ.getenv("DATA_DIR", os.path.dirname(
+DATA_DIR = os.environ.get("DATA_DIR", os.path.dirname(
     os.path.realpath(__file__)))
 
 
@@ -105,7 +105,7 @@ def check_for_probes(settings):
 
 
 def main():
-    filename = os.environ.getenv("CONFIG_FILE", 'config.json')
+    filename = os.environ.get("CONFIG_FILE", 'config.json')
     data = load_config(filename)
     if print_help():
         if check_for_probes(data):

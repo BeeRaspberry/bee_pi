@@ -13,7 +13,7 @@ sensor_types = (Adafruit_DHT.DHT11, Adafruit_DHT.DHT22, Adafruit_DHT.AM2302)
 
 logger = logging.getLogger('find_probes')
 logging.basicConfig(level=logging.INFO)
-DATA_DIR = os.environ.getenv("DATA_DIR", os.path.dirname(
+DATA_DIR = os.environ.get("DATA_DIR", os.path.dirname(
     os.path.realpath(__file__)))
 
 
@@ -78,7 +78,7 @@ def find():
 
 
 if __name__ == '__main__':
-    filename = os.environ.getenv("CONFIG_FILE", 'config.json')
+    filename = os.environ.get("CONFIG_FILE", 'config.json')
     print('Writing Configuration file located at {}'.format(filename))
     data = load_config(filename)
     data['probes'] = find()
