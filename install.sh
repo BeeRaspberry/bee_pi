@@ -1,9 +1,29 @@
 #!/usr/bin/env bash
 
+function setup_python3() {
+    echo "Checking Python3"
+    python3 --version >/dev/null 2>&1
+    if [[ $? -ne 0 ]]; then
+        apt-get install python3
+    fi
+}
+
+function copy_files() {
+    for FILE in cmd_config.py config.py record_data.py gui_config.py install.sh setup.py
+    do
+        cp ${FILE} ${BEE_DIR}/src/.
+    done
+}
+
 function setup_prereqs() {
-    python3 -m venv ${VIRTUALENV}
+    echo "Creating virtualenv ${VIRTUALENV}"
+    if [[ ! -d ${VIRTUALENV} ]]; then
+      python3 -m venv ${VIRTUALENV}
+    fi
+    echo "Installing python requirements"
     source ${VIRTUALENV}/bin/activate
     pip install -r requirements.txt
+    echo "Searching for probes"
     python find_probes.py
     if [[ $? -eq 0 ]]; then
        python cmd_config.py
@@ -12,13 +32,9 @@ function setup_prereqs() {
     fi
 }
 
-function setup_service() {
+function create_init_file() {
     touch ${INIT_FILE}
     chmod 0700 ${INIT_FILE}
-
-    touch ${CONF_FILE}
-    chmod 0700 ${CONF_FILE}
-
 
 cat << EOF > ${INIT_FILE}
 [Unit]
@@ -26,21 +42,26 @@ Description=Bee Data Record Service
 After=network.target
 
 [Service]
-User=${USER}
+User=${SUDO_USER}
 Group=pi
 StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=bee_data
 Environment=VIRTUAL_ENV=${VIRTUALENV}
 Environment=PATH=${VIRTUAL_ENV}/bin:${PATH}
-Environment=DATA_DIR=${HOME}/bee_data
-ExecStart=${VIRTUALENV}/bin/python ${HOME}/git/bee_pi/record_data.py
+Environment=DATA_DIR=${BEE_DIR}/bee_data
+ExecStart=${VIRTUALENV}/bin/python ${BEE_DIR}/src/record_data.py
 Restart=always
 
 [Install]
 WantedBy=multi-user.target
 
 EOF
+}
+
+function create_conf_file() {
+    touch ${CONF_FILE}
+    chmod 0700 ${CONF_FILE}
 
 cat << 'EOF' > ${CONF_FILE}
 if $programname == "bee_data" then /var/log/bee_data.log
@@ -49,18 +70,37 @@ if $programname == "find_probes" then /var/log/bee_find_probes.log
 
 EOF
 
+}
+
+function setup_service() {
+    echo "Adding service"
+    if [[ ! -f ${CONF_FILE} ]]; then
+        create_init_file
+    fi
+
+    if [[ ! -f ${CONF_FILE} ]]; then
+        create_conf_file
+    fi
+
    systemctl restart rsyslog
    systemctl daemon-reload
    systemctl start bee_data
 }
 
+if (( $EUID != 0 )); then
+    echo "Please run as root"
+    exit
+fi
+
 RC=0
 INIT_FILE=/usr/lib/systemd/system/bee_data.service
 CONF_FILE=/etc/rsyslog.d/bee_data.conf
-VIRTUALENV=${HOME}/virtualenv
+BEE_DIR=/opt/bee_pi
+VIRTUALENV=${BEE_DIR}/virtualenv
 
-[[ ! -d ${HOME}/bee_data ]] && mkdir ${HOME}/bee_data
+[[ ! -d ${BEE_DIR}/bee_data ]] && mkdir ${BEE_DIR}/bee_data
 
+copy_files
 setup_prereqs
 if [[ ${RC} -eq 0 ]]; then
    setup_service
