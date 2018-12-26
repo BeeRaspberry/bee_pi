@@ -1,6 +1,6 @@
 language: python
 python:
-  - "3.7-dev"
+  - "3.5"
 install:
   - pip install -r requirements.txt
   - pip install coveralls
@@ -8,11 +8,12 @@ script:
   - python -m pytest --cov .
 after_success:
   - coveralls
-  - tar -zcvf raspberry_files.tgz cmd_config.py config.py find_probes.py install.sh record_data.py
+  - tar -zcvf pi_files.tgz cmd_config.py config.py find_probes.py install.sh record_data.py
 deploy:
   provider: releases
-  api_key: "GITHUB OAUTH TOKEN"
-  file: raspberry_files.tgz
+  api_key:
+    secure: OjhsyL9ayg22GcHS6CxrLviQ6bkNoGHZ4srSNfPOFlGUANLQpGLuoZP1Jh0pkupHkWvDT50uGf9ihbW4VtvZBlF4H1dS5A3gNgbKWytiPmLnYx4wWs932buwdLSL8N64nKnDMySJCYfwg9D5nU26yQ7bCvm2tAlME0yip582z0rd8Ww6RYb0oUkW5rTmCsAQyUuwcu5DREjC07L3F6XumPMWC2ay4BV9NnR1Z77RiENcqfB5ZwfMZWmJVcefwKhqfMeljUXoaxAo69/SXiZ+ehRSwlMl2ieRBmXC+9tj4cflbdRrHrhboVPomLYn3YqvlMTeu9DF0V1eI1A3N+TVqfepWmvI02XJwi19f8efqv/nN+CSMHjt7pf2QE4dsHY2b1AEd8nCM6SpOEf6txR6ws9FS7BcyzN9MnNQUXI9DH8eC+w1vHJzLY6L49DPwmXciIBZxfnI79r7cqK+My9EqYjMo2GhvvNhOWNnm6GnclL3jRIcJBskmCCH+Q8KcS9FGWgWekAaZLfK+aRY7Xgmr5RRfvv4v1iNTWIwLk6drT4q2Fmvn14glL5eiVJp1RNqI5Jj61Xv1K1Jd1exZE4ySXA8sHSYInXfb6roShvNTAVtusup9UqfMV81MOTOljyLEsahGA5V9B8czNTzCXOtqL7oVtvfWn6bn3+++Dc86DE=
+  file: pi_files.tgz
   skip_cleanup: true
   on:
     tags: true
