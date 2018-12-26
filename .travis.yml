@@ -16,4 +16,4 @@ deploy:
   file: pi_files.tgz
   skip_cleanup: true
   on:
-    tags: true
+    all_branches: true
