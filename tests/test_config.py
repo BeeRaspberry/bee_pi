@@ -1,8 +1,8 @@
-from bee_pi.config import (get_probe_types, write_config, load_config)
+from config import (get_probe_types, write_config, load_config)
 
 
 def test_write_config():
-    settings = { "host": "localhost", "probes": [
+    settings = {"host": "localhost", "probes": [
         {"pin": 4, "sensor": 22, "outdoor": "False"}, {"pin": 21, "sensor": 11,
                                                        "outdoor": "True"}],
                  "dataStore": 0, "delay": 300, "hiveId": 1,
@@ -15,4 +15,4 @@ def test_write_config():
 
 
 def test_get_probe_types():
-    assert get_probe_types() == [0, 11, 22, 2302]
+    assert get_probe_types() == ['0', '11', '22', '2302']

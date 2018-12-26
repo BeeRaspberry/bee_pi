@@ -2,7 +2,7 @@
 import sys
 import RPi.GPIO as GPIO
 import Adafruit_DHT
-from bee_pi.config import *
+from config import *
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -78,9 +78,9 @@ def find():
 
 
 if __name__ == '__main__':
-    filename = os.path.join(DATA_DIR, 'config.json')
+    filename = os.environ.get("CONFIG_FILE", 'config.json')
     print('Writing Configuration file located at {}'.format(filename))
-    data = load_config(filenam)
+    data = load_config(filename)
     data['probes'] = find()
     write_config(data, filename)
     if len(data['probes']) > 0:

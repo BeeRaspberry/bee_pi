@@ -3,7 +3,8 @@ branch = True
 omit =
     # omit site-packages directory anywhere
     */site-packages/*
-    bee_pi/find_probes.py
+    */Python??/Lib/*
+    find_probes.py
 include = *.py
 
 [report]

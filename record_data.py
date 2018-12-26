@@ -1,6 +1,6 @@
 # Import all the libraries we need to run
 from time import sleep
-from bee_pi.config import *
+from config import *
 
 from datetime import datetime
 import platform
@@ -8,7 +8,7 @@ import netifaces
 import requests
 
 # TODO: Need to run this on a PI.
-if platform.system() in 'raspberry':
+if 'armv' in platform.machine():
     import Adafruit_DHT
     import RPi.GPIO as GPIO
 
@@ -46,9 +46,9 @@ def write_data(filename, hive_data):
 
 def main():
     logger.debug('starting collecting data')
-    config_file = os.path.join(DATA_DIR, 'config.json')
+    config_file = os.environ.get("CONFIG_FILE", 'config.json')
 
-    settings = load_config(config_file, logger)
+    settings = load_config(config_file)
     if settings is None:
         logger.error('Config File, {}, is empty. Run cmd_config.py'.
                      format(config_file))

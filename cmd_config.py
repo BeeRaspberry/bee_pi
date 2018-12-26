@@ -1,4 +1,4 @@
-from bee_pi.config import *
+from config import *
 
 logger = logging.getLogger('cmd_config')
 logging.basicConfig(level=logging.INFO)
@@ -51,13 +51,13 @@ def get_settings(settings):
         isvalid=lambda v: int(v),
         default_value=settings['delay']
     )
-    settings['dataStore'] = prompt(
+    settings['dataStore'] = int(prompt(
         message="Use local=0 or API=1 for storing data? Current setting is {}".
                 format(settings['dataStore']),
         errormessage="Valid response is 0 or 1",
-        isvalid=lambda v: v in [0, 1],
+        isvalid=lambda v: v in ['0', '1'],
         default_value=settings['dataStore']
-    )
+    ))
 
     if settings['dataStore'] == 1:
         settings['host'] = prompt(
@@ -105,11 +105,11 @@ def check_for_probes(settings):
 
 
 def main():
-    filename = os.path.join(DATA_DIR, 'config.json')
+    filename = os.environ.get("CONFIG_FILE", 'config.json')
     data = load_config(filename)
     if print_help():
         if check_for_probes(data):
-            write_config(get_settings(data), filename, logger)
+            write_config(get_settings(data), filename)
         else:
             print("No probes found. Run 'find_probes.py' to find them.")
 
