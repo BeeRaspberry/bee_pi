@@ -12,6 +12,20 @@ Included code scans for probes so user doesn't have to setup the PI with the por
 
 A GUI program exists to help with the configuration. The UI allows the user to specify a remote host for API calls, and whether a probe is inside or outside the hive.
 
+
+## Installation
+Installation is a three step process.
+
+- download [installation package]( releases/download/release-0.2/pi_files.tgz)
+- uncompress file
+```bash
+tar -xzvf pi_files.tgz
+```
+- run **install.sh**
+```bash
+sudo ./install.sh
+```
+
 ### Main Components
 
 This repo's main components are:
@@ -67,21 +81,6 @@ The file is built primarily via **find_probes.py** which finds the probes, and s
 - `delay` is the time in seconds for the process to wait between probe readings.
 - `hiveId` is a unique identifier for those who have multiple hives.
 - `filename` is the file name used to store the data when the datastore is `0`.
-
-## Installation
-Installation is a three step process.
-
-- clone the repo
-```bash
-git clone git@github.com:erikdeirdre/bee_pi.git
-#or
-git clone https://github.com/erikdeirdre/bee_pi.git
-```
-
-- run **install.sh**
-```bash
-sudo ./install.sh
-```
 
 ## Work Flow
 The work flow is simple.
