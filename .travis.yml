@@ -8,7 +8,7 @@ script:
   - python -m pytest --cov .
 after_success:
   - coveralls
-  - tar -zcvf pi_files.tgz cmd_config.py config.py find_probes.py install.sh record_data.py install.sh
+  - tar -zcvf pi_files.tgz cmd_config.py config.py find_probes.py install.sh record_data.py install.sh pi_requirements.txt
 deploy:
   provider: releases
   api_key:
