@@ -1,10 +1,30 @@
 #!/usr/bin/env bash
 
+function install_package() {
+    PKG=$1
+    apt list --installed | grep -i ${PKG} 2>/dev/null
+    if [[ $? -ne 0 ]]; then
+        apt-get install -y ${PKG}
+    fi
+}
+
+function install_adafruit() {
+    echo "Checking Adafruit"
+    for FILE in git-core build-essential python-dev
+    do
+        install_package ${FILE}
+    done
+    cd /tmp
+    git clone https://github.com/adafruit/Adafruit_Pyton_DHT.git
+    cd Adafruit_Python_DHT
+    python setup.py install
+}
+
 function setup_python3() {
     echo "Checking Python3"
     python3 --version >/dev/null 2>&1
     if [[ $? -ne 0 ]]; then
-        apt-get install python3
+        apt-get install python3 python3-pip
     fi
 }
 
@@ -13,7 +33,7 @@ function copy_files() {
         mkdir -p ${BEE_SRC}
     fi
 
-    for FILE in cmd_config.py config.py record_data.py gui_config.py install.sh setup.py
+    for FILE in cmd_config.py config.py record_data.py install.sh pi_requirements.txt
     do
         cp ${FILE} ${BEE_SRC}/.
     done
@@ -79,7 +99,7 @@ EOF
 
 function setup_service() {
     echo "Adding service"
-    if [[ ! -f ${CONF_FILE} ]]; then
+    if [[ ! -f ${INIT_FILE} ]]; then
         create_init_file
     fi
 
