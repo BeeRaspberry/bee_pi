@@ -16,6 +16,6 @@ deploy:
   file: files.tgz
   skip_cleanup: true
   on:
-    tags: true
-    branch: master
-    condition: "$TRAVIS_TAG =~ ^release-*$"
+    tag: true
+    all_branches: true
+    condition: $TRAVIS_TAG =~ ^release-*$

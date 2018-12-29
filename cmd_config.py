@@ -25,12 +25,14 @@ def print_help():
     print("If you prefer, you may manually update the config file, "
           "'config.json'")
     print("\n")
-    cont_script = input("Update configuration file (y/n) (default=n)?")
-    if cont_script is None or cont_script.upper() == 'N':
+    try:
+        cont_script = input("Update configuration file (y/n) (default=n)?")
+        if cont_script is None or cont_script.upper() == 'N':
+            return False
+        else:
+            return True
+    except EOFError:
         return False
-    else:
-        return True
-
 
 def get_settings(settings):
     settings['hiveId'] = prompt(
