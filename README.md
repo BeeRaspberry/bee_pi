@@ -16,13 +16,13 @@ A GUI program exists to help with the configuration. The UI allows the user to s
 ## Installation
 Installation is a three step process.
 
-- download [installation package](../../releases/download/release-0.2/pi_files.tgz)
+- download [installation package](../../releases/download/release-0.1/files.tgz)
 ```bash
-wget https://github.com/BeeRaspberry/bee_pi/releases/download/release-0.2/pi_files.tgz
+wget https://github.com/BeeRaspberry/bee_pi/releases/download/release-0.1/files.tgz
 ```
 - uncompress file
 ```bash
-tar -xzvf pi_files.tgz
+tar -xzvf files.tgz
 ```
 - run **install.sh**
 ```bash
