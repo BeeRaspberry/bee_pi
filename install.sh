@@ -111,6 +111,7 @@ function setup_service() {
    systemctl restart rsyslog
    systemctl daemon-reload
    systemctl start bee_data
+   systemctl enable bee_data
 }
 
 if (( $EUID != 0 )); then
@@ -120,7 +121,7 @@ fi
 
 RC=0
 WORKING_DIR=$(pwd)
-INIT_FILE=/usr/lib/systemd/system/bee_data.service
+INIT_FILE=/etc/systemd/system/bee_data.service
 CONF_FILE=/etc/rsyslog.d/bee_data.conf
 BEE_DIR=/opt/bee_pi
 BEE_DATA=${BEE_DIR}/bee_data
@@ -132,4 +133,9 @@ VIRTUALENV=${BEE_DIR}/virtualenv
 
 apt-get update && apt-get upgrade -y
 install_python && install_adafruit
-copy_files && setup_virtualenv && setup_service
+copy_files && setup_virtualenv
+
+echo "Fix permissions"
+chown -R pi:pi ${BEE_DIR}
+setup_service
+

@@ -19,3 +19,4 @@ deploy:
     tag: true
     all_branches: true
     condition: $TRAVIS_TAG =~ ^release-*
+    name: $TRAVIS_TAG
