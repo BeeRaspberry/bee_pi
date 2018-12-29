@@ -10,21 +10,26 @@ function install_package() {
 
 function install_adafruit() {
     echo "Checking Adafruit"
-    for FILE in git-core build-essential python-dev
+    for FILE in git-core build-essential python3-dev
     do
         install_package ${FILE}
     done
     cd /tmp
-    git clone https://github.com/adafruit/Adafruit_Pyton_DHT.git
+#TODO: git asking for user id and password
+    git clone https://github.com/adafruit/Adafruit_Python_DHT.git
     cd Adafruit_Python_DHT
     python setup.py install
 }
 
-function setup_python3() {
+function install_python() {
     echo "Checking Python3"
     python3 --version >/dev/null 2>&1
     if [[ $? -ne 0 ]]; then
-        apt-get install python3 python3-pip
+        echo "Install Python requirements"
+        for FILE in python3 python3-pip python3-venv
+        do
+            install_package ${FILE}
+        done
     fi
 }
 
@@ -39,7 +44,7 @@ function copy_files() {
     done
 }
 
-function setup_prereqs() {
+function setup_virtualenv() {
     echo "Creating virtualenv ${VIRTUALENV}"
     if [[ ! -d "${VIRTUALENV}" ]]; then
       python3 -m venv ${VIRTUALENV}
@@ -113,8 +118,8 @@ function setup_service() {
 }
 
 if (( $EUID != 0 )); then
-    echo "Please run as root"
-    exit
+    echo "Script needs to be run as root"
+    exit 9
 fi
 
 RC=0
@@ -128,8 +133,6 @@ VIRTUALENV=${BEE_DIR}/virtualenv
 
 [[ ! -d ${BEE_DATA} ]] && mkdir -p ${BEE_DATA}
 
-copy_files
-setup_prereqs
-if [[ ${RC} -eq 0 ]]; then
-   setup_service
-fi
+apt-get update && apt-get upgrade -y
+install_python && install_adafruit
+copy_files && setup_virtualenv && setup_service
