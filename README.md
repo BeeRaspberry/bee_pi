@@ -10,19 +10,16 @@ The module is intended to be as close as possible to plug-and-play.
 
 Included code scans for probes so user doesn't have to setup the PI with the ports, and models (DHT11, DHT22, etc.) automatically.
 
-A GUI program exists to help with the configuration. The UI allows the user to specify a remote host for API calls, and whether a probe is inside or outside the hive.
-
-
 ## Installation
 Installation is a three step process.
 
-- download [installation package](../../releases/download/release-0.2/pi_files.tgz)
+- download [installation package](../../releases/download/release-0.1/files.tgz)
 ```bash
-wget https://github.com/BeeRaspberry/bee_pi/releases/download/release-0.2/pi_files.tgz
+wget https://github.com/BeeRaspberry/bee_pi/releases/download/release-0.1/files.tgz
 ```
 - uncompress file
 ```bash
-tar -xzvf pi_files.tgz
+tar -xzvf files.tgz
 ```
 - run **install.sh**
 ```bash
