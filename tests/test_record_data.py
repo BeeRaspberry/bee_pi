@@ -1,4 +1,8 @@
-from record_data import (check_for_network_connection)
+import os
+from datetime import datetime
+
+from record_data import (check_for_network_connection,
+                         write_data)
 
 
 def test_check_network_connection():
@@ -6,27 +10,30 @@ def test_check_network_connection():
     assert network_connected is True
 
 
-# TODO: Need to get sample data from PI
-#def test_write_data():
-#    data = {
-#        "host": "localhost",
-#        "probes": [{
-#            "pin": 4,
-#            "sensor": 22,
-#            "outdoor": "False"
-#        }, {
-#            "pin": 21,
-#            "sensor": 11,
-#            "outdoor": "True"
-#        }],
-#        "dataStore": 0,
-#        "delay": 300,
-#        "hive": 1,
-#        'dateCreated': datetime.utcnow().__str__(),
-#        "filename": "hivedata.csv"
-#    }
+def test_write_data():
+    DATA_DIR = os.environ.get("DATA_DIR", os.path.dirname(
+        os.path.realpath(__file__)))
+    filename = os.path.join(DATA_DIR, '..', 'tempfile')
+    try:
+        os.remove(filename)
+    except Exception:
+        pass
 
-#    write_data('temp.dat', data)
-#    with open('temp.dat') as data_file:
-#        file_data = json.load(data_file)
-#    assert data == file_data
+    date_time = datetime.utcnow().__str__()
+    data = {'hive': {'id': 1},
+            'probes': [
+                {'sensor': 11, 'humidity': 22.0, 'outdoor': 'True',
+                 'temperature': 18.0},
+                {'sensor': 22, 'humidity': 35.599998474121094,
+                 'outdoor': 'False',
+                 'temperature': 19.799999237060547}],
+            'dateCreated': date_time}
+    write_data('tempfile', data)
+    probe = data['probes'][0]
+    line = '{},{},{},{},{:.3f},{:.3f}\n'. \
+        format(data['hive']['id'], data['dateCreated'], probe['sensor'],
+               probe['outdoor'], probe['temperature'], probe['humidity'])
+
+    with open(filename) as f:
+        content = f.readlines()
+    assert line == content[0]

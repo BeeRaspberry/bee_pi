@@ -1,4 +1,4 @@
-# Import all the libraries we need to run
+import os
 from time import sleep
 from config import *
 
@@ -33,7 +33,6 @@ def check_for_network_connection():
 
 def write_data(filename, hive_data):
     filename = os.path.join(DATA_DIR, filename)
-
     with open(filename, 'a') as data_file:
         logger.debug("Writing to data to file, {}".format(filename))
         for probe in hive_data['probes']:
@@ -65,30 +64,32 @@ def main():
 
     while True:
         tmp_probes = []
+        # Gather data from the probes
         for probe in settings['probes']:
             logger.debug("Checking probe, {}".format(probe['sensor']))
             rhw, tw = Adafruit_DHT.read_retry(probe['sensor'], probe['pin'])
             tmp_probes.append({'sensor': probe['sensor'],
                                'outdoor': probe['outdoor'],
                                'humidity': rhw, 'temperature': tw})
-            content = {'hive': {'id': settings['hiveId']}, 'dateCreated':
-                       datetime.utcnow().__str__(), 'probes': tmp_probes}
 
-            if network_connected and settings['dataStore'] == 1:
-                try:
-                    response = requests.post(base_url, json=content,
-                                             timeout=30.0)
-                    if response.status_code != requests.codes.ok:
-                        logger.warning('Invalid Response: code: {}, '
-                                       'response: {}'.format(
-                                        response.status_code,
-                                        response.json()['message']))
-                except requests.exceptions.RequestException as e:
-                    logger.warning('Connection Error: {}'.format(e))
-                    logger.warning('Connection Error. Writing data locally')
-                    write_data(settings['filename'], content)
-            else:
+        content = {'hive': {'id': settings['hiveId']}, 'dateCreated':
+                   datetime.utcnow().__str__(), 'probes': tmp_probes}
+        # Check for network protocol and network access
+        if network_connected and settings['dataStore'] == 1:
+            try:
+                response = requests.post(base_url, json=content,
+                                         timeout=30.0)
+                if response.status_code != requests.codes.ok:
+                    logger.warning('Invalid Response: code: {}, '
+                                   'response: {}'.format(
+                                    response.status_code,
+                                    response.json()['message']))
+            except requests.exceptions.RequestException as e:
+                logger.warning('Connection Error: {}'.format(e))
+                logger.warning('Connection Error. Writing data locally')
                 write_data(settings['filename'], content)
+        else:
+            write_data(settings['filename'], content)
 
             sleep(int(settings['delay']))
 

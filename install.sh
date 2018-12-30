@@ -20,8 +20,14 @@ function install_adafruit() {
 }
 
 function install_python() {
-    echo "Install Python requirements"
+    echo "Install Python 3 requirements"
     for FILE in python3 python3-pip python3-venv git-core build-essential python3-dev python3-setuptools
+    do
+      install_package ${FILE}
+    done
+
+    echo "Install Python 2 Requirements"
+    for FILE in python-setuptools python-dev
     do
       install_package ${FILE}
     done
@@ -33,7 +39,7 @@ function copy_files() {
     fi
 
     cd ${WORKING_DIR}
-    for FILE in cmd_config.py config.py record_data.py install.sh pi_requirements.txt
+    for FILE in cmd_config.py config.py record_data.py find_probes.py install.sh pi_requirements.txt
     do
         cp ${FILE} ${BEE_SRC}/.
     done
@@ -41,7 +47,7 @@ function copy_files() {
 
 function setup_virtualenv() {
     echo "Creating virtualenv ${VIRTUALENV}"
-    cd ${WORKGIN_DIR}
+    cd ${WORKING_DIR}
     if [[ ! -d "${VIRTUALENV}" ]]; then
       python3 -m venv ${VIRTUALENV}
     fi
