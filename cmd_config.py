@@ -34,6 +34,7 @@ def print_help():
     except EOFError:
         return False
 
+
 def get_settings(settings):
     settings['hiveId'] = prompt(
         message="Enter an unique hive identifier. Current value is {}".

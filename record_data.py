@@ -7,7 +7,6 @@ import platform
 import netifaces
 import requests
 
-# TODO: Need to run this on a PI.
 if 'armv' in platform.machine():
     import Adafruit_DHT
     import RPi.GPIO as GPIO
@@ -43,6 +42,21 @@ def write_data(filename, hive_data):
             data_file.write(line)
 
 
+def write_to_network(content):
+    try:
+        response = requests.post(base_url, json=content,
+                                 timeout=30.0)
+        if response.status_code != requests.codes.ok:
+            logger.warning('Invalid Response: code: {}, '
+                           'response: {}'.format(
+                            response.status_code,
+                            response.json()['message']))
+        return True
+    except requests.exceptions.RequestException as e:
+        logger.warning('Connection Error: {}'.format(e))
+        logger.warning('Connection Error. Writing data locally')
+        return False
+
 def main():
     logger.debug('starting collecting data')
     config_file = os.environ.get("CONFIG_FILE", 'config.json')
@@ -74,19 +88,9 @@ def main():
 
         content = {'hive': {'id': settings['hiveId']}, 'dateCreated':
                    datetime.utcnow().__str__(), 'probes': tmp_probes}
-        # Check for network protocol and network access
+
         if network_connected and settings['dataStore'] == 1:
-            try:
-                response = requests.post(base_url, json=content,
-                                         timeout=30.0)
-                if response.status_code != requests.codes.ok:
-                    logger.warning('Invalid Response: code: {}, '
-                                   'response: {}'.format(
-                                    response.status_code,
-                                    response.json()['message']))
-            except requests.exceptions.RequestException as e:
-                logger.warning('Connection Error: {}'.format(e))
-                logger.warning('Connection Error. Writing data locally')
+            if not write_to_network(content):
                 write_data(settings['filename'], content)
         else:
             write_data(settings['filename'], content)
