@@ -13,25 +13,13 @@ jobs:
             python3 -m venv venv
             . venv/bin/activate
             pip install -r requirements.txt
-<<<<<<< HEAD
-            sudo pip install pytest coverage
-      - run:
-          name: Run Coverage Report
-          command: |
-#            coverage report && coverage xml -o test-reports/coverage/coverage.xml
-            coverage run *.py && coverage report && coveralls
-      - run:
-          name: Run Tests
-          command: |
-            pytest test_config.py --junitxml=test-reports/tox/tox.xml
-#            tox
-=======
             sudo pip install pytest pytest-cov python-coveralls
       - run:
           name: Run Test with Coverage Report
           command: |
-            coverage run -m pytest --cov=bee_pi --cov-report=xml:.coverage
-            coverage run -m pytest --cov=bee_pi --cov-report=xml:test-reports/coverage.xml
+            coverage run -m pytest --cov . --cov-report=xml:.coverage
+            coverage run -m pytest --cov . --cov-report=xml:test-reports/coverage.xml
+            coverage report
             coveralls
 ###
 #            coverage run -m pytest --cov=bee_pi --cov-report=xml:test-reports/coverage.xml
@@ -42,9 +30,3 @@ jobs:
 #            tox
 #            coveralls
 #            pytest tests/test_config.py --junitxml=test-reports/tox/tox.xml --cov=bee_pi format=coverage --cover-xml
->>>>>>> origin/master
-
-      - store_test_results:
-          path: test-reports/
-      - store_artifacts:
-          path: test-reports/
