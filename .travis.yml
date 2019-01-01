@@ -10,7 +10,7 @@ script:
 after_success:
   - coveralls
   - codecov
-  - tar -zcvf files.tgz cmd_config.py config.py find_probes.py install.sh record_data.py install.sh pi_requirements.txt
+  - tar -zcvf files.tgz -T tar_files.txt
 deploy:
   provider: releases
   api_key:
