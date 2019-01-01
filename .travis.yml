@@ -4,10 +4,12 @@ python:
 install:
   - pip install -r requirements.txt
   - pip install coveralls
+  - pip install codecov
 script:
   - python -m pytest --cov .
 after_success:
   - coveralls
+  - codecov
   - tar -zcvf files.tgz cmd_config.py config.py find_probes.py install.sh record_data.py install.sh pi_requirements.txt
 deploy:
   provider: releases
