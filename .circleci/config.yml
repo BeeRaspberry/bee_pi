@@ -12,8 +12,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install -r requirements.txt
-            sudo pip install pytest pytest-cov python-coveralls
+            sudo pip install -r requirements.txt
       - run:
           name: Run Test with Coverage Report
           command: |
