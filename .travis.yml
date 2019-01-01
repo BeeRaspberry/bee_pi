@@ -10,7 +10,7 @@ script:
 after_success:
   - coveralls
   - codecov
-  - tar -zcvf files.tgz -T tar_files.txtpip inst
+  - tar -zcvf files.tgz -T tar_files.txt
 deploy:
   provider: releases
   api_key:
