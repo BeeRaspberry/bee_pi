@@ -2,6 +2,8 @@
 [![Build Status](https://travis-ci.org/BeeRaspberry/bee_pi.svg?branch=master)](https://travis-ci.org/BeeRaspberry/bee_pi)
 [![Coverage Status](https://coveralls.io/repos/github/BeeRaspberry/bee_pi/badge.svg)](https://coveralls.io/github/BeeRaspberry/bee_pi)
 [![codecov](https://codecov.io/gh/BeeRaspberry/bee_pi/branch/master/graph/badge.svg)](https://codecov.io/gh/BeeRaspberry/bee_pi)
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/BeeRaspberry/bee_pi.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/BeeRaspberry/bee_pi/alerts/)
+[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/BeeRaspberry/bee_pi.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/BeeRaspberry/bee_pi/context:python)
 
 Bee PI is one component of a Python-based application for monitoring a bee hive using a Raspberry PI.
 
