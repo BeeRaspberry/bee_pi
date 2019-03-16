@@ -1,7 +1,10 @@
 [tox]
-envlist = py37
+envlist = py35
+
 
 [testenv]
+skipsdist=True
+
 passenv =
     *
     TRAVIS
@@ -11,5 +14,5 @@ deps =
     -r{toxinidir}/requirements.txt
     coveralls
 commands =
-    coverage run -m pytest --cov=bee_pi --cov-report=xml:test-reports/coverage.xml
+    coverage run -m pytest --cov=. --cov-report=xml:test-reports/coverage.xml
     coveralls

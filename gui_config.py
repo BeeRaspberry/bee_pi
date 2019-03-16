@@ -6,10 +6,11 @@ lstLocation = ['File', 'API']
 lstTypes = ['None', 'DHT11', 'DHT22', 'AM2302']
 
 logger = logging.getLogger('gui_config')
-DATA_DIR=os.environ.get("DATA_DIR", os.path.dirname(
+DATA_DIR = os.environ.get("DATA_DIR", os.path.dirname(
     os.path.realpath(__file__)))
 logging.basicConfig(filename=os.path.join(DATA_DIR, 'bee_config.log'),
                     level=logging.INFO)
+
 
 class GUI(wx.Frame):
     def __init__(self, parent, title, data):
@@ -33,7 +34,7 @@ class GUI(wx.Frame):
         self.txtHost.Hide()
 
         posY = posY + 70
-        st = wx.StaticText(panel0, label="Sensor Probes", pos=(225,posY))
+#        st = wx.StaticText(panel0, label="Sensor Probes", pos=(225, posY))
 
         posY = posY + 20
         self.dhtType1 = wx.RadioBox(panel0, label='DHT Type', choices=lstTypes,
@@ -142,7 +143,6 @@ class GUI(wx.Frame):
 def main():
     ex = wx.App()
     data = loadConfig(os.path.join(DATA_DIR, 'config.json'), logger)
-    original = data
     GUI(None, 'Bee Hive Config', data)
     ex.MainLoop()
 
