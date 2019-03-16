@@ -67,9 +67,6 @@ def main():
                      format(config_file))
         exit(9)
 
-    base_url = 'http://{}:{}/hivedata/'.format(settings['host'],
-                                               settings['port'])
-
     logger.debug('configuring probes')
     for probe in settings['probes']:
         GPIO.setup(probe['pin'], GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
