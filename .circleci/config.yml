@@ -49,14 +49,9 @@ jobs:
           command: |
             . venv/bin/activate
             pip install coveralls codecov
-            python -m pytest --cov .
+            coverage run -m pytest
+            coverage report
+            coverage html
 
       - store_artifacts:
-          path: test-reports
-          destination: test-reports
-          prefix: tests
-      - store_artifacts:
-          path: coverage
-          prefix: coverage
-      - store_test_results:
-          path: test-results.xml
+          path: htmlcov
