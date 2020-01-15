@@ -22,7 +22,7 @@ wget https://github.com/BeeRaspberry/bee_pi/releases/download/release-0.1/files.
 ```bash
 tar -xzvf files.tgz
 ```
-- run **install.sh**
+-   run **install.sh**
 ```bash
 sudo ./install.sh
 ```
@@ -30,11 +30,11 @@ sudo ./install.sh
 ### Main Components
 
 This repo's main components are:
-- **config.json**
-- **find_probes.py**
-- **cmd_config**
-- **record_data.py**
-- **install.sh**
+-   **config.json**
+-   **find_probes.py**
+-   **cmd_config**
+-   **record_data.py**
+-   **install.sh**
 
 #### config.json
 
@@ -65,10 +65,10 @@ The file is built primarily via **find_probes.py** which finds the probes, and s
 **cmd_config.py** is a command line version of **gui_config.py**.
 
 **install.sh** installs the required components. Steps include:
-- creates the virtualenv environment
-- runs `find_probes.py`
-- executes `cmd_config.py`
-- configures `systemd` so the process runs as a service
+-   creates the virtualenv environment
+-   runs `find_probes.py`
+-   executes `cmd_config.py`
+-   configures `systemd` so the process runs as a service
  
 ##### config.json variable explained
 - `host` refers to the API host when the module is running in API mode.
