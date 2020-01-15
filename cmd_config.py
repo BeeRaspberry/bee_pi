@@ -10,7 +10,7 @@ def prompt(message, errormessage, isvalid, default_value=None):
     res = None
     while res is None:
         res = input(str(message)+': ')
-        if res is '' and default_value is not None:
+        if res == '' and default_value is not None:
             return default_value
 
         if not isvalid(res):
