@@ -14,11 +14,11 @@ Included code scans for probes so user doesn't have to setup the PI with the por
 ## Installation
 Installation is a three step process.
 
--  download [installation package](../../releases/download/release-0.1/files.tgz)
+-   download [installation package](../../releases/download/release-0.1/files.tgz)
 ```bash
 wget https://github.com/BeeRaspberry/bee_pi/releases/download/release-0.1/files.tgz
 ```
-- uncompress file
+-   uncompress file
 ```bash
 tar -xzvf files.tgz
 ```
