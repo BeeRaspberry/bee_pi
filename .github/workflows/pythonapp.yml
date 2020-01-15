@@ -1,4 +1,4 @@
-name: bee_pi
+name: build_and_package
 
 on: [push]
 
