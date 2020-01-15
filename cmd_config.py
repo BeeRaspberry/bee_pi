@@ -1,6 +1,6 @@
 import os
 import logging
-from config import (get_probe_types, load_config)
+from config import (get_probe_types, load_config, write_config)
 logger = logging.getLogger('cmd_config')
 logging.basicConfig(level=logging.INFO)
 DATA_DIR = os.getenv("DATA_DIR", os.path.dirname(os.path.realpath(__file__)))
