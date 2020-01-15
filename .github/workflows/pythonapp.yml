@@ -44,7 +44,7 @@ jobs:
 
     - name: create TAR file
       run: |
-        echo ::set-env name=RELEASE::$(grep VERSION record_data.py | awk -F " = " '{print $NF}'|sed 's/"//g')
+        echo ::set-env name=RELEASE::release-$(grep VERSION record_data.py | awk -F " = " '{print $NF}'|sed 's/"//g')
         tar -zcvf files.tgz -T tar_files.txt
 
     - name: create release
