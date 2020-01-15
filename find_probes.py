@@ -4,7 +4,7 @@ import os
 import logging
 import RPi.GPIO as GPIO
 import Adafruit_DHT
-from config import *
+from config import (load_config)
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)

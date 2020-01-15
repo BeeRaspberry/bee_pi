@@ -18,15 +18,15 @@ Included code scans for probes so user doesn't have to setup the PI with the por
 ## Installation
 Installation is a three step process.
 
-- download [installation package](../../releases/download/release-0.1/files.tgz)
+-   download [installation package](../../releases/download/release-0.1/files.tgz)
 ```bash
 wget https://github.com/BeeRaspberry/bee_pi/releases/download/release-0.1/files.tgz
 ```
-- uncompress file
+-   uncompress file
 ```bash
 tar -xzvf files.tgz
 ```
-- run **install.sh**
+-   run **install.sh**
 ```bash
 sudo ./install.sh
 ```
@@ -34,12 +34,12 @@ sudo ./install.sh
 ### Main Components
 
 This repo's main components are:
-- **config.json**
-- **find_probes.py**
-- **gui_config.py**
-- **cmd_config**
-- **record_data.py**
-- **install.sh**
+-   **config.json**
+-   **find_probes.py**
+-   **gui_config.py**
+-   **cmd_config**
+-   **record_data.py**
+-   **install.sh**
 
 #### config.json
 
@@ -70,18 +70,18 @@ The file is built primarily via **find_probes.py** which finds the probes, and s
 **cmd_config.py** is a command line version of **gui_config.py**.
 
 **install.sh** installs the required components. Steps include:
-- creates the virtualenv environment
-- runs `find_probes.py`
-- executes `cmd_config.py`
-- configures `systemd` so the process runs as a service
-
+-   creates the virtualenv environment
+-   runs `find_probes.py`
+-   executes `cmd_config.py`
+-   configures `systemd` so the process runs as a service
+ 
 ##### config.json variable explained
-- `host` refers to the API host when the module is running in API mode.
-- `port` refers to the API port when the module is running in API mode.
-- `probes` is an array of probes (thermometers, and humidity; currently). Within the array are:
-  - `pin` refers to the Raspberry PI pin the probe is attached to.
-  - `sensor` indicates the probe model (currently DHT11, DHT22, AM2302)
-  - `outdoor` indicates the location of the probe.
+-   `host` refers to the API host when the module is running in API mode.
+-   `port` refers to the API port when the module is running in API mode.
+-   `probes` is an array of probes (thermometers, and humidity; currently). Within the array are:
+  -   `pin` refers to the Raspberry PI pin the probe is attached to.
+  -   `sensor` indicates the probe model (currently DHT11, DHT22, AM2302)
+  -   `outdoor` indicates the location of the probe.
 - `dataStore` informs the system the data is written to a file or an API-based.
 - `delay` is the time in seconds for the process to wait between probe readings.
 - `hiveId` is a unique identifier for those who have multiple hives.
