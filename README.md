@@ -1,5 +1,5 @@
 # bee_pi
-![](https://github.com/BeeRaspberry/bee_pi/workflows/bee_pi/badge.svg)
+![](https://github.com/BeeRaspberry/bee_pi/workflows/build_and_package/badge.svg)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0dd7ae717fb34eebaae1fd65b40ae881)](https://app.codacy.com/app/erikdeirdre/bee_pi?utm_source=github.com&utm_medium=referral&utm_content=BeeRaspberry/bee_pi&utm_campaign=Badge_Grade_Dashboard)
 [![Codacy Badge](https://api.codacy.com/project/badge/Coverage/4cb8ef70df5243af80ed35039e965ba1)](https://www.codacy.com/manual/erikdeirdre/bee_pi?utm_source=github.com&utm_medium=referral&utm_content=BeeRaspberry/bee_pi&utm_campaign=Badge_Coverage)
 
@@ -14,7 +14,7 @@ Included code scans for probes so user doesn't have to setup the PI with the por
 ## Installation
 Installation is a three step process.
 
-- download [installation package](../../releases/download/release-0.1/files.tgz)
+-  download [installation package](../../releases/download/release-0.1/files.tgz)
 ```bash
 wget https://github.com/BeeRaspberry/bee_pi/releases/download/release-0.1/files.tgz
 ```
