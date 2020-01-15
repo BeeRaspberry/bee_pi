@@ -1,7 +1,7 @@
 import os
 import logging
 from time import sleep
-from config import *
+from config import (load_config)
 
 from datetime import datetime
 import platform

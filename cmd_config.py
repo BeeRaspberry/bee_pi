@@ -1,4 +1,5 @@
 import os
+import logging
 from config import (get_probe_types, load_config)
 logger = logging.getLogger('cmd_config')
 logging.basicConfig(level=logging.INFO)

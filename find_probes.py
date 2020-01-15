@@ -4,7 +4,7 @@ import os
 import logging
 import RPi.GPIO as GPIO
 import Adafruit_DHT
-from config import (load_config)
+from config import (load_config, write_config)
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
@@ -34,7 +34,7 @@ def find():
         GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
         h, t = Adafruit_DHT.read_retry(sensor_types[0], pin, retries=3)
         if h is not None and t is not None:
-# if h is valid then add values to probe, don't add pin to used_pins
+            # if h is valid then add values to probe, don't add pin to used_pins
             if h > 2.0 and h < 101.0:
                 probes.append({'sensor': sensor_types[0], 'pin': pin,
                                'outdoor': False})
