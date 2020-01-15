@@ -36,7 +36,6 @@ sudo ./install.sh
 This repo's main components are:
 - **config.json**
 - **find_probes.py**
-- **gui_config.py**
 - **cmd_config**
 - **record_data.py**
 - **install.sh**
@@ -89,7 +88,7 @@ The file is built primarily via **find_probes.py** which finds the probes, and s
 
 ## Work Flow
 The work flow is simple.
-1. read the configuraton file
+1. read the configuration file
 2. check the defined probes for values
 3. record data
    1. transmit data if API enabled AND network available
