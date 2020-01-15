@@ -1,4 +1,4 @@
-name: Python application
+name: bee_pi
 
 on: [push]
 

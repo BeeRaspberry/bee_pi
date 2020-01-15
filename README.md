@@ -1,11 +1,7 @@
 # bee_pi
-[![Build Status](https://travis-ci.org/BeeRaspberry/bee_pi.svg?branch=master)](https://travis-ci.org/BeeRaspberry/bee_pi)
-[![CircleCI](https://circleci.com/gh/BeeRaspberry/bee_pi.svg?style=svg)](https://circleci.com/gh/BeeRaspberry/bee_pi)
+![](https://github.com/BeeRaspberry/bee_pi/workflows/bee_pi/badge.svg)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0dd7ae717fb34eebaae1fd65b40ae881)](https://app.codacy.com/app/erikdeirdre/bee_pi?utm_source=github.com&utm_medium=referral&utm_content=BeeRaspberry/bee_pi&utm_campaign=Badge_Grade_Dashboard)
-[![Coverage Status](https://coveralls.io/repos/github/BeeRaspberry/bee_pi/badge.svg)](https://coveralls.io/github/BeeRaspberry/bee_pi)
-[![codecov](https://codecov.io/gh/BeeRaspberry/bee_pi/branch/master/graph/badge.svg)](https://codecov.io/gh/BeeRaspberry/bee_pi)
-[![Total alerts](https://img.shields.io/lgtm/alerts/g/BeeRaspberry/bee_pi.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/BeeRaspberry/bee_pi/alerts/)
-[![Language grade: Python](https://img.shields.io/lgtm/grade/python/g/BeeRaspberry/bee_pi.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/BeeRaspberry/bee_pi/context:python)
+[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/4cb8ef70df5243af80ed35039e965ba1)](https://www.codacy.com/manual/erikdeirdre/bee_pi?utm_source=github.com&utm_medium=referral&utm_content=BeeRaspberry/bee_pi&utm_campaign=Badge_Coverage)
 
 Bee PI is one component of a Python-based application for monitoring a bee hive using a Raspberry PI.
 
