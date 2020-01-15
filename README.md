@@ -72,14 +72,20 @@ The file is built primarily via **find_probes.py** which finds the probes, and s
  
 ##### config.json variable explained
 -   `host` refers to the API host when the module is running in API mode.
+
 -   `port` refers to the API port when the module is running in API mode.
+
 -   `probes` is an array of probes (thermometers, and humidity; currently). Within the array are:
     -   `pin` refers to the Raspberry PI pin the probe is attached to.
     -   `sensor` indicates the probe model (currently DHT11, DHT22, AM2302)
     -   `outdoor` indicates the location of the probe.
--   `dataStore` informs the system the data is written to a file or an API-based.
+    
+-   `dataStore` 
+
 -   `delay` is the time in seconds for the process to wait between probe readings.
+
 -   `hiveId` is a unique identifier for those who have multiple hives.
+
 -   `filename` is the file name used to store the data when the datastore is `0`.
 
 ## Work Flow
