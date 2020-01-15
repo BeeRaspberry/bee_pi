@@ -1,6 +1,7 @@
 import os
+import logging
 from time import sleep
-from config import *
+from config import (load_config)
 
 from datetime import datetime
 import platform
@@ -44,6 +45,7 @@ def write_data(filename, hive_data):
 
 
 def write_to_network(content):
+    base_url = 'be_mine'
     try:
         response = requests.post(base_url, json=content,
                                  timeout=30.0)
@@ -57,6 +59,7 @@ def write_to_network(content):
         logger.warning('Connection Error: {}'.format(e))
         logger.warning('Connection Error. Writing data locally')
         return False
+
 
 def main():
     logger.debug('starting collecting data')

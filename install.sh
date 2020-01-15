@@ -144,4 +144,4 @@ copy_files && setup_virtualenv
 echo "Fix permissions"
 chown -R pi:pi ${BEE_DIR}
 setup_service
-
+exit $RC
