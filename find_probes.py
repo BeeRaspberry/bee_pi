@@ -1,5 +1,7 @@
 # Import all the libraries we need to run
 import sys
+import os
+import logging
 import RPi.GPIO as GPIO
 import Adafruit_DHT
 from config import *
@@ -13,7 +15,7 @@ sensor_types = (Adafruit_DHT.DHT11, Adafruit_DHT.DHT22, Adafruit_DHT.AM2302)
 
 logger = logging.getLogger('find_probes')
 logging.basicConfig(level=logging.INFO)
-DATA_DIR = os.environ.get("DATA_DIR", os.path.dirname(
+DATA_DIR = os.getenv("DATA_DIR", os.path.dirname(
     os.path.realpath(__file__)))
 
 

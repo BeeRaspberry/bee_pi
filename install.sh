@@ -125,7 +125,6 @@ if (( $EUID != 0 )); then
     exit 9
 fi
 
-RC=0
 WORKING_DIR=$(pwd)
 INIT_FILE=/etc/systemd/system/bee_data.service
 CONF_FILE=/etc/rsyslog.d/bee_data.conf
