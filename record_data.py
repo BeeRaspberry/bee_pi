@@ -19,7 +19,7 @@ logger = logging.getLogger('record_data')
 logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
 DATA_DIR = os.environ.get("DATA_DIR", os.path.dirname(
     os.path.realpath(__file__)))
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 
 
 def check_for_network_connection():

@@ -24,9 +24,10 @@ tar -xzvf files.tgz
 ```
 -   run **install.sh**
 ```bash
-sudo ./install.sh
+sudo `pwd`/install.sh
 ```
 
+"`pwd`" is required to capture the current working directory. Otherwise, the script won't work. 
 ### Main Components
 
 This repo's main components are:
