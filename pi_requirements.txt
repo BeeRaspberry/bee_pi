@@ -1,2 +1,6 @@
+netifaces>=0.10.9
+requests>=2.22.0
+urllib3>=1.25.7
 Adafruit-DHT==1.4.0
 RPi.GPIO==0.7.0
+platform

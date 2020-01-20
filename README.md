@@ -61,9 +61,7 @@ This is the configuration file used by record_data.py to determine what probes e
 ```
 The file is built primarily via **find_probes.py** which finds the probes, and sets the config file to write locally.
 
-**gui_config.py** supplements the process by allowing the user to make changes to the file without knowing geek stuff. **NOTE:** I had problems installing the wx.Python module on my PI resulting in **cmd_config.py**.
-
-**cmd_config.py** is a command line version of **gui_config.py**.
+**cmd_config.py** is interactive script to modify the config file.
 
 **install.sh** installs the required components. Steps include:
 -   creates the virtualenv environment
