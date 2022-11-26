@@ -9,10 +9,10 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
-    - name: Set up Python 3.7
+    - name: Set up Python 3.10
       uses: actions/setup-python@v1
       with:
-        python-version: 3.7
+        python-version: 3.10
 
     - name: Install dependencies
       run: |
@@ -46,13 +46,13 @@ jobs:
     - name: create TAR file
       if: github.ref == 'refs/heads/master'
       run: |
-        echo ::set-env name=RELEASE::release-$(grep VERSION record_data.py | awk -F " = " '{print $NF}'|sed 's/"//g')
+        echo "RELEASE=release-$(grep VERSION record_data.py | awk -F " = " '{print $NF}'|sed 's/"//g')" >> $GITHUB_ENV
         tar -zcvf files.tgz -T tar_files.txt
 
     - name: create release
       id: create_release
       uses: actions/create-release@v1
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/main'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -65,12 +65,12 @@ jobs:
 
     - name: Upload Release Asset
       id: upload-release-asset
-      uses: actions/upload-release-asset@v1.0.1
-      if: github.ref == 'refs/heads/master'
+      uses: svenstaro/upload-release-action@v2
+      if: github.ref == 'refs/heads/main'
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: files.tgz
+        tag: ${{ env.RELEASE }}
+        file: files.tgz
         asset_name:  files.tgz
-        asset_content_type: application/zip
+        overwrite: true
