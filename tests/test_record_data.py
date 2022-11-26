@@ -2,15 +2,14 @@ import os
 from datetime import datetime
 
 import unittest
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 from record_data import (check_for_network_connection,
                          write_data,
-                         write_to_network,
-                         main)
+                         write_to_network)
 
 
-class TestTestClass(unittest.TestCase):
+class TestRecordData(unittest.TestCase):
     def test_check_network_connection(self):
         network_connected = check_for_network_connection()
         self.assertEqual(network_connected, True)

@@ -2,7 +2,7 @@ import unittest
 from config import (get_probe_types, write_config, load_config)
 
 
-class TestTestClass(unittest.TestCase):
+class TestConfig(unittest.TestCase):
     def test_write_config(self):
         settings = {"host": "localhost", "probes": [
             {"pin": 4, "sensor": 22, "outdoor": "False"}, {"pin": 21, "sensor": 11,
