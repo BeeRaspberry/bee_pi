@@ -32,4 +32,4 @@ def load_config(file_name):
 def write_config(data, file_name):
     logger.debug("Writing config file, {}".format(file_name))
     with open(file_name, "w") as data_file:
-        json.dump(data, data_file)
+        json.dump(data, data_file, indent=2)

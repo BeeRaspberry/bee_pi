@@ -2,9 +2,12 @@
 
 function install_package() {
     PKG=$1
-    apt list --installed | grep -i ${PKG} 2>/dev/null
+    apt list --installed | grep -i "${PKG}" 2>/dev/null
     if [[ $? -ne 0 ]]; then
-        apt install ${PKG} -y
+        echo "${PKG} not found ... Installing"
+        apt install "${PKG}" -y
+    else
+        echo "${PKG} already installed"
     fi
 }
 
@@ -25,34 +28,27 @@ function install_python() {
     do
       install_package ${FILE}
     done
-
-    echo "Install Python 2 Requirements"
-    for FILE in python-setuptools python-dev
-    do
-      install_package ${FILE}
-    done
 }
 
 function copy_files() {
     if [[ ! -d "${BEE_SRC}" ]]; then
-        mkdir -p ${BEE_SRC}
+        mkdir -p "${BEE_SRC}"
     fi
 
-    cd ${WORKING_DIR}
+    cd "${WORKING_DIR}"
     for FILE in cmd_config.py config.py record_data.py find_probes.py install.sh pi_requirements.txt
     do
-        cp ${FILE} ${BEE_SRC}/.
+        cp "${FILE}" "${BEE_SRC}"/.
     done
 }
 
 function setup_virtualenv() {
     echo "Creating virtualenv ${VIRTUALENV}"
-    cd ${WORKING_DIR}
-    if [[ ! -d "${VIRTUALENV}" ]]; then
-      python3 -m venv ${VIRTUALENV}
-    fi
+    cd "${WORKING_DIR}"
+    [[ ! -d "${BEE_DATA}" ]] && python3 -m venv "${VIRTUALENV}"
+
     echo "Installing python requirements"
-    source ${VIRTUALENV}/bin/activate
+    source "${VIRTUALENV}"/bin/activate
     pip install -r pi_requirements.txt
     echo "Searching for probes"
     python find_probes.py
@@ -64,10 +60,10 @@ function setup_virtualenv() {
 }
 
 function create_init_file() {
-    touch ${INIT_FILE}
-    chmod 0700 ${INIT_FILE}
+    touch "${INIT_FILE}"
+    chmod 0700 "${INIT_FILE}"
 
-cat << EOF > ${INIT_FILE}
+cat << EOF > "${INIT_FILE}"
 [Unit]
 Description=Bee Data Record Service
 After=network.target
@@ -92,10 +88,10 @@ EOF
 }
 
 function create_conf_file() {
-    touch ${CONF_FILE}
-    chmod 0700 ${CONF_FILE}
+    touch "${CONF_FILE}"
+    chmod 0700 "${CONF_FILE}"
 
-cat << 'EOF' > ${CONF_FILE}
+cat << 'EOF' > "${CONF_FILE}"
 if $programname == "bee_data" then /var/log/bee_data.log
 if $programname == "cmd_config" then /var/log/bee_cmd_config.log
 if $programname == "find_probes" then /var/log/bee_find_probes.log
@@ -126,10 +122,11 @@ if (( $EUID != 0 )); then
 fi
 
 RC=0
-WORKING_DIR=$(pwd)
-INIT_FILE=/etc/systemd/system/bee_data.service
-CONF_FILE=/etc/rsyslog.d/bee_data.conf
-BEE_DIR=/opt/bee_pi
+WORKING_DIR="$( dirname "${BASH_SOURCE[0]}" )"
+
+[ -z ${INIT_FILE+x} ] && INIT_FILE=/etc/systemd/system/bee_data.service
+[ -z ${CONF_FILE+x} ] && CONF_FILE=/etc/rsyslog.d/bee_data.conf
+[ -z ${BEE_DIR+x} ] && BEE_DIR=/opt/bee_pi
 BEE_DATA=${BEE_DIR}/bee_data
 BEE_SRC=${BEE_DIR}/src
 export CONFIG_FILE=${BEE_DIR}/config.json

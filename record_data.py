@@ -15,11 +15,12 @@ if 'armv' in platform.machine():
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
 
-logger = logging.getLogger('record_data')
-logging.basicConfig(level=os.environ.get("LOGLEVEL", "INFO"))
+logger = logging.getLogger(__name__)
+logging.basicConfig(level=os.environ.get("LOGLEVEL", logging.INFO),
+                    format='%(levelname)s %(message)s')
 DATA_DIR = os.environ.get("DATA_DIR", os.path.dirname(
     os.path.realpath(__file__)))
-VERSION = "1.0.0"
+VERSION = "1.1.1"
 
 
 def check_for_network_connection():
@@ -62,7 +63,7 @@ def write_to_network(content):
 
 
 def main():
-    logger.debug('starting collecting data')
+    logger.info('starting collecting data')
     config_file = os.environ.get("CONFIG_FILE", 'config.json')
 
     settings = load_config(config_file)
@@ -71,7 +72,7 @@ def main():
                      format(config_file))
         exit(9)
 
-    logger.debug('configuring probes')
+    logger.info('configuring probes')
     for probe in settings['probes']:
         GPIO.setup(probe['pin'], GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
 
