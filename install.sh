@@ -44,7 +44,7 @@ function copy_files() {
 
 function setup_virtualenv() {
     echo "Creating virtualenv ${VIRTUALENV}"
-    cd ${WORKING_DIR}
+    cd "${WORKING_DIR}"
     [[ ! -d "${BEE_DATA}" ]] && python3 -m venv "${VIRTUALENV}"
 
     echo "Installing python requirements"
