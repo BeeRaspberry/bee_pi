@@ -50,12 +50,14 @@ def write_to_network(content):
     try:
         response = requests.post(base_url, json=content,
                                  timeout=30.0)
-        if response.status_code != requests.codes.ok:
+        if response.status_code == requests.codes.ok:
+            return True
+        else:
             logger.warning('Invalid Response: code: {}, '
                            'response: {}'.format(
                             response.status_code,
                             response.json()['message']))
-        return True
+            return False
     except requests.exceptions.RequestException as e:
         logger.warning('Connection Error: {}'.format(e))
         logger.warning('Connection Error. Writing data locally')

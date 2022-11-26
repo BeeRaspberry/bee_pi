@@ -1,15 +1,33 @@
 import os
-import unittest
 from datetime import datetime
 
+import unittest
+from unittest.mock import MagicMock, patch
+
 from record_data import (check_for_network_connection,
-                         write_data)
+                         write_data,
+                         write_to_network,
+                         main)
 
 
 class TestTestClass(unittest.TestCase):
     def test_check_network_connection(self):
         network_connected = check_for_network_connection()
         self.assertEqual(network_connected, True)
+
+    @patch('record_data.requests.post')
+    def test_write_to_network_success(self, mock_post):
+        mock_post.return_value.status_code = 200
+        self.assertEqual(write_to_network("This is a test"), True)
+
+    @patch('record_data.requests.post')
+    def test_write_to_network_failure(self, mock_post):
+        mock_post.return_value.status_code = 500
+        mock_post.return_value.json.return_value = {
+            "message": "Network error"
+        }
+
+        self.assertEqual(write_to_network("This is a test"), False)
 
     def test_write_data(self):
         DATA_DIR = os.environ.get("DATA_DIR", os.path.dirname(
