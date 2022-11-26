@@ -33,15 +33,13 @@ jobs:
 
     - name: Generate reports
       run: |
-        coverage report
         coverage xml -o test-results/coverage.xml
-        coverage html
 
-    - name: Publish reports
-      env:
-        CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
-      run: |
-        python-codacy-coverage -r test-results/coverage.xml
+    - name: Publish Report
+      uses: codacy/codacy-coverage-reporter-action@v1
+      with:
+        project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        coverage-reports: test-results/coverage.xml
 
     - name: create TAR file
       if: github.ref == 'refs/heads/master'
