@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v1
+      uses: actions/setup-python@v2.3.3
     - name: Set up Python 3.10
-      uses: actions/setup-python@v1
+      uses: actions/setup-python@v2.3.3
       with:
         python-version: "3.10"
 
@@ -46,7 +46,6 @@ jobs:
       run: |
         echo "RELEASE=release-$(grep VERSION record_data.py | awk -F " = " '{print $NF}'|sed 's/"//g')" >> $GITHUB_ENV
         tar -zcvf files.tgz -T tar_files.txt
-        env
 
     - name: Create Release including Artifact
       id: create_release
