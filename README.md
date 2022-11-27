@@ -1,7 +1,7 @@
 # bee_pi
 ![](https://github.com/BeeRaspberry/bee_pi/workflows/build_and_package/badge.svg)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/0dd7ae717fb34eebaae1fd65b40ae881)](https://app.codacy.com/app/erikdeirdre/bee_pi?utm_source=github.com&utm_medium=referral&utm_content=BeeRaspberry/bee_pi&utm_campaign=Badge_Grade_Dashboard)
-[![Codacy Badge](https://api.codacy.com/project/badge/Coverage/4cb8ef70df5243af80ed35039e965ba1)](https://www.codacy.com/manual/erikdeirdre/bee_pi?utm_source=github.com&utm_medium=referral&utm_content=BeeRaspberry/bee_pi&utm_campaign=Badge_Coverage)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/cffc88d664b84c80ac3f9b2b3b6f53aa)](https://www.codacy.com/gh/BeeRaspberry/bee_pi/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=BeeRaspberry/bee_pi&amp;utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Coverage/cffc88d664b84c80ac3f9b2b3b6f53aa)](https://www.codacy.com/gh/BeeRaspberry/bee_pi/dashboard?utm_source=github.com&utm_medium=referral&utm_content=BeeRaspberry/bee_pi&utm_campaign=Badge_Coverage)
 
 Bee PI is one component of a Python-based application for monitoring a bee hive using a Raspberry PI.
 

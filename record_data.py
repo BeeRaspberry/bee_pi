@@ -20,7 +20,7 @@ logging.basicConfig(level=os.environ.get("LOGLEVEL", logging.INFO),
                     format='%(levelname)s %(message)s')
 DATA_DIR = os.environ.get("DATA_DIR", os.path.dirname(
     os.path.realpath(__file__)))
-VERSION = "1.1.1"
+VERSION = "1.1.2"
 
 
 def check_for_network_connection():
@@ -50,12 +50,14 @@ def write_to_network(content):
     try:
         response = requests.post(base_url, json=content,
                                  timeout=30.0)
-        if response.status_code != requests.codes.ok:
+        if response.status_code == requests.codes.ok:
+            return True
+        else:
             logger.warning('Invalid Response: code: {}, '
                            'response: {}'.format(
                             response.status_code,
                             response.json()['message']))
-        return True
+            return False
     except requests.exceptions.RequestException as e:
         logger.warning('Connection Error: {}'.format(e))
         logger.warning('Connection Error. Writing data locally')
@@ -91,13 +93,16 @@ def main():
         content = {'hive': {'id': settings['hiveId']}, 'dateCreated':
                    datetime.utcnow().__str__(), 'probes': tmp_probes}
 
-        if network_connected and settings['dataStore'] == 1:
-            if not write_to_network(content):
-                write_data(settings['filename'], content)
+# dataStore == 1, write to file
+        if settings['dataStore'] == 1:
+            write_data(settings['filename'], content)
+        elif network_connected and not write_to_network(content):
+            write_data(settings['filename'], content)
         else:
             write_data(settings['filename'], content)
-
-            sleep(int(settings['delay']))
+# recheck the network connection
+            network_connected = check_for_network_connection()
+        sleep(int(settings['delay']))
 
 
 if __name__ == '__main__':
