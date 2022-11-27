@@ -36,16 +36,16 @@ def print_help():
 
 
 def get_settings(settings):
-    settings['hiveId'] = prompt(
+    settings['hiveId'] = int(prompt(
         message="Enter an unique hive identifier. Current value is {}".
                 format(settings['hiveId']),
         error_message="Enter a valid, positive integer. If you have more than "
                      "one hive these must be unique",
         isvalid=lambda v: int(v),
         default_value=settings['hiveId']
-    )
+    ))
 
-    settings['delay'] = prompt(
+    settings['delay'] = int(prompt(
         message="Enter delay (in seconds) for getting probe readings. Default "
                 "is 900 seconds (15 minutes). Current settings is {}".
                 format(settings['delay']),
@@ -53,12 +53,12 @@ def get_settings(settings):
                      "will result in more data",
         isvalid=lambda v: int(v),
         default_value=settings['delay']
-    )
+    ))
     settings['dataStore'] = int(prompt(
         message="Use local=0 or API=1 for storing data? Current setting is {}".
                 format(settings['dataStore']),
         error_message="Valid response is 0 or 1",
-        isvalid=lambda v: v in ['0', '1'],
+        isvalid=lambda v: v in [0, 1],
         default_value=settings['dataStore']
     ))
 
