@@ -82,3 +82,36 @@ class TestCmdConfig(unittest.TestCase):
             "filename": "hivedata.csv"}
         results = get_settings(settings)
         self.assertDictEqual(new_settings, results)
+
+    @patch('builtins.input', side_effect=[1, 30, 1, 'localhost', 1234,
+                                        '11', 'Y'])
+    def test_get_settings_network_no_port(self, mock_inputs):
+        settings = {
+            "host": "localhost", "probes": [
+            {"pin": 4, "sensor": "11", "outdoor": "False"}],
+            "dataStore": 0, "delay": 300, "hiveId": 1,
+            "filename": "hivedata.csv"}
+        new_settings = {
+            "host": "localhost", "probes": [
+            {"pin": 4, "sensor": "11", "outdoor": "True"}],
+            "dataStore": 0, "delay": 30, "hiveId": 1,
+            "filename": "hivedata.csv"}
+        with self.assertRaises(KeyError) as context:
+            results = get_settings(settings)
+        self.assertTrue("port" in str(context.exception))
+
+    @patch('builtins.input', side_effect=[1, 30, 1, 'localhost', 1234,
+                                        '11', 'Y'])
+    def test_get_settings_network(self, mock_inputs):
+        settings = {
+            "host": "my", "probes": [
+            {"pin": 4, "sensor": "11", "outdoor": "False"}],
+            "dataStore": 0, "delay": 300, "hiveId": 1,
+            "filename": "hivedata.csv", "port": 2222}
+        new_settings = {
+            "host": "localhost", "probes": [
+            {"pin": 4, "sensor": "11", "outdoor": "True"}],
+            "dataStore": 1, "delay": 30, "hiveId": 1,
+            "filename": "hivedata.csv", "port": 1234}
+        results = get_settings(settings)
+        self.assertDictEqual(new_settings, results)
