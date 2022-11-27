@@ -42,7 +42,7 @@ jobs:
         coverage-reports: test-results/coverage.xml
 
     - name: create TAR file
-      if: github.ref == 'refs/heads/master'
+      if: github.ref == 'refs/heads/main'
       run: |
         echo "RELEASE=release-$(grep VERSION record_data.py | awk -F " = " '{print $NF}'|sed 's/"//g')" >> $GITHUB_ENV
         tar -zcvf files.tgz -T tar_files.txt
