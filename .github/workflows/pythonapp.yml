@@ -46,6 +46,7 @@ jobs:
       run: |
         echo "RELEASE=release-$(grep VERSION record_data.py | awk -F " = " '{print $NF}'|sed 's/"//g')" >> $GITHUB_ENV
         tar -zcvf files.tgz -T tar_files.txt
+        env
 
     - name: Create Release including Artifact
       id: create_release
